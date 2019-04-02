@@ -1,0 +1,28 @@
+﻿@model  ShoppingCart.Models.Customers
+<h2>Login To Shopping Website</h2>
+
+    @using (Html.BeginForm("Login", "Customer", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <td>@Html.LabelFor(c => c.CustomerId):</td>
+                <td>@Html.TextBoxFor(c => c.CustomerId)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(c => c.Password):</td>
+                <td>@Html.PasswordFor(c => c.Password)</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="left"><input type="submit" value="Login" /></td>
+                <td colspan="2" align="right"><input type="reset" value="cancel" /></td>
+
+            </tr>
+          
+        </table>
+    }
+
+    <style>
+        td, tr {
+            padding: 2px
+        }
+    </style>

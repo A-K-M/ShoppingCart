@@ -16,14 +16,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Shopping Cart", "Login", "Customer", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                @*check if the user is already loggin or not to show the different nav bar*@
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("LogIn", "Login", "Customer")</li>
                 </ul>
+
+                @*use this nev bar if the user is logged in*@
+
+                @*<ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Gallary", "Login", "Customer")</li>
+                    <li>@Html.ActionLink("Purchsed List", "Login", "Customer")</li>
+                    <li>@Html.ActionLink("Cart", "Login", "Customer")</li>
+                    <li>@Html.ActionLink("LogOut", "Login", "Customer")</li>
+                </ul>*@
+
             </div>
         </div>
     </div>
@@ -31,7 +40,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Shopping Cart with MVC - by Team 1A</p>
         </footer>
     </div>
 
