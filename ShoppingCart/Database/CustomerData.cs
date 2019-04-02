@@ -42,10 +42,9 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string q = @"SELECT CustomerID, Lecturer.Firstname, Lecturer.Lastname, Practice.Name FROM
-                        Lecturer, Practice
-                            WHERE Lecturer.PracticeId = Practice.Id
-                                AND Lecturer.SessionId = '" + sessionId + "'";
+                string q = @"SELECT CustomerID 
+                            FROM Customer
+                            WHERE SessionId = '" + sessionId + "'";
 
                 SqlCommand cmd = new SqlCommand(q, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -57,8 +56,6 @@ namespace ShoppingCart.Database
                     };
                 }
             }
-            
-
             return customer;
         }
     }
