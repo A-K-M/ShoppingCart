@@ -12,12 +12,14 @@ namespace ShoppingCart.Controllers
     {
         ProductData pd = new ProductData();
         // GET: Product
-
         public ActionResult Gallery(string sessionId)
         {
-            ViewData["sessionId"] = sessionId;
             List<Product> products = pd.GetAllProducts();
+            Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
+            ViewData["products"] = products;
+            ViewData["customer"] = customer;
+            ViewData["sessionId"] = sessionId;
             return View(products);
         }
     }
-}  
+}

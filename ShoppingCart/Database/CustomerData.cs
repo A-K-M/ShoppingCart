@@ -17,7 +17,7 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string sql = @"SELECT CustomerId, Username, Password from Customers
+                string sql = @"SELECT CustomerId, Username, Password, FirstName, LastName from Customers
                     WHERE Username = '" + username + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -27,7 +27,10 @@ namespace ShoppingCart.Database
                     customer = new Customer()
                     {
                         CustomerId = (int)reader["CustomerId"],
-                        Password = (string)reader["Password"]
+                        Password = (string)reader["Password"],
+                        FirstName = (string)reader["FirstName"],
+                        LastName = (string)reader["LastName"],
+                        Username = (string)reader["Username"]
                     };
                 }
             }
@@ -42,7 +45,7 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string q = @"SELECT CustomerID 
+                string q = @"SELECT CustomerID, FirstName, LastName 
                             FROM Customers
                             WHERE SessionId = '" + sessionId + "'";
 
@@ -53,6 +56,8 @@ namespace ShoppingCart.Database
                     customer = new Customer()
                     {
                         CustomerId = (int)reader["CustomerId"],
+                        FirstName = (string)reader["FirstName"],
+                        LastName = (string)reader["LastName"]
                     };
                 }
             }

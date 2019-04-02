@@ -130,9 +130,13 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PurchaseDetailsController.cs" />
+    <Compile Include="Controllers\PurchasesController.cs" />
     <Compile Include="Database\CustomerData.cs" />
     <Compile Include="Database\Data.cs" />
     <Compile Include="Database\ProductData.cs" />
+    <Compile Include="Database\PurchaseData.cs" />
+    <Compile Include="Database\PurchaseDetailsData.cs" />
     <Compile Include="Database\SessionData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -142,6 +146,9 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Purchase.cs" />
     <Compile Include="Models\PurchaseDetail.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,8 +160,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\user.PNG" />
+    <Content Include="obj\Debug\ShoppingCart.csproj.FileListAbsolute.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\ShoppingCart.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\ShoppingCart.csprojAssemblyReference.cache" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -180,12 +192,14 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Product\Gallery.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Logout\" />
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\PurchaseDetails\" />
+    <Folder Include="Views\Purchases\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
