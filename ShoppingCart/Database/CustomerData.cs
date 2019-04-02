@@ -57,7 +57,7 @@ namespace ShoppingCart.Database
                     };
                 }
             }
-            }
+            
 
             return customer;
         }
