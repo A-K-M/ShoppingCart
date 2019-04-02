@@ -20,7 +20,7 @@ namespace ShoppingCart.Controllers
                 return View();
 
             string sessionId = SessionData.CreateSession(customer.CustomerId);
-            return RedirectToAction("Product", "Gallary", new { sessionId });
+            return RedirectToAction("Product", "Gallery", new { sessionId });
         }
     }
 }
