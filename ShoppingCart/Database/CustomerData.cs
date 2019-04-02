@@ -34,34 +34,34 @@ namespace ShoppingCart.Database
             return customer;
         }
 
-        public static Customer GetCustomerBySessionId(string sessionId)
-        {
-            Customer customer = null;
+        //public static Customer GetCustomerBySessionId(string sessionId)
+        //{
+        //    Customer customer = null;
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
 
-                string q = @"SELECT CustomerID, Lecturer.Firstname, Lecturer.Lastname, Practice.Name FROM
-                        Lecturer, Practice
-                            WHERE Lecturer.PracticeId = Practice.Id
-                                AND Lecturer.SessionId = '" + sessionId + "'";
+        //        string q = @"SELECT CustomerID, Lecturer.Firstname, Lecturer.Lastname, Practice.Name FROM
+        //                Lecturer, Practice
+        //                    WHERE Lecturer.PracticeId = Practice.Id
+        //                        AND Lecturer.SessionId = '" + sessionId + "'";
 
-                SqlCommand cmd = new SqlCommand(q, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    customer = new Customer()
-                    {
-                        Id = (int)reader["Id"],
-                        FirstName = (string)reader["FirstName"],
-                        LastName = (string)reader["LastName"],
-                        PracticeName = (string)reader["Name"]
-                    };
-                }
-            }
+        //        SqlCommand cmd = new SqlCommand(q, conn);
+        //        SqlDataReader reader = cmd.ExecuteReader();
+        //        if (reader.Read())
+        //        {
+        //            customer = new Customer()
+        //            {
+        //                Id = (int)reader["Id"],
+        //                FirstName = (string)reader["FirstName"],
+        //                LastName = (string)reader["LastName"],
+        //                PracticeName = (string)reader["Name"]
+        //            };
+        //        }
+        //    }
 
-            return customer;
-        }
+        //    return customer;
+        //}
     }
 }
