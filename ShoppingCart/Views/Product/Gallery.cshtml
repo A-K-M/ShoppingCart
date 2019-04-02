@@ -1,0 +1,46 @@
+﻿@using ShoppingCart.Models
+
+@{
+    ViewBag.Title = "Libraries Gallery";
+}
+
+@{
+    var products = (List<Product>)ViewData["products"];
+    var customer = (Customer)ViewData["customer"];
+    var name = customer.FirstName + " " + customer.LastName;
+    var sessionId = ViewData["sessionId"];
+}
+
+<table>
+    <tr>
+        <th>Hello, @name </th>
+        <td>@Html.ActionLink("My Purchases", "ViewPurchases", "Purchases", new { sessionId = @sessionId }, null)</td>
+        <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
+        <td>@Html.ActionLink("My Cart", "ViewCart", "Cart", new { sessionId = @sessionId }, null)</td>
+    </tr>
+</table>
+
+<div style="line-height:20px">&nbsp;</div>
+
+<table align="center" border="1">
+
+    @foreach (var product in products)
+    {
+        <tr>
+            <td>
+                <table align="center" border="1" width="100%">
+                    <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
+                    <tr><td>@product.ProductName</td></tr>
+                    <tr><td>@product.ProductDescription</td></tr>
+                    <tr><td>@product.UnitPrice - Add to Cart</td></tr>
+                </table>
+            </td>
+        </tr>
+    }
+</table>
+
+<style>
+    td, tr, th {
+        padding: 2px;
+    }
+</style>

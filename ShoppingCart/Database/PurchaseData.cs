@@ -1,38 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using System.Data.SqlClient;
+using ShoppingCart.Models;
 
 namespace ShoppingCart.Database
 {
-    public class PurchaseData : Database
+    public class ProductData : Data
     {
-        public static List<Purchase> GetPurchasesByCustomerId(int customerID)
+        public List<Product> GetAllProducts()
         {
-            List<Purchase> Purchases = new List<Purchase>();
+            List<Product> products_list = new List<Product>();
+
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
                 conn.Open();
 
-                string sql = @"SELECT PurchaseID from Purchases where CustomerID=" + CustomerID;
+                string sql = @"SELECT ProductId, ProductName, ProductDescription, UnitPrice, Image
+                            from Products order by ProductId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
+
+
                 SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                if (reader != null)
                 {
-                    Purchase _Purchase = new Purchase()
+                    while (reader.Read())
                     {
-                        PurchaseId = (int)reader["PurchaseId"]
-                    };
-
-                    Purchase.Add(_Purchase);
+                        products_list.Add(new Product()
+                        {
+                            ProductId = (int)reader["ProductId"],
+                            ProductName = (string)reader["ProductName"],
+                            ProductDescription = (string)reader["ProductDescription"],
+                            UnitPrice = (decimal)reader["UnitPrice"],
+                            ImagePath = (string)reader["Image"]
+                        });
+                    }
                 }
-
-
-
             }
-            return Purchase;
+            return products_list;
         }
     }
 }
