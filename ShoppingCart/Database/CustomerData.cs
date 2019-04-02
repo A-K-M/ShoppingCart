@@ -53,12 +53,10 @@ namespace ShoppingCart.Database
                 {
                     customer = new Customer()
                     {
-                        Id = (int)reader["Id"],
-                        FirstName = (string)reader["FirstName"],
-                        LastName = (string)reader["LastName"],
-                        PracticeName = (string)reader["Name"]
+                        CustomerId = (int)reader["CustomerId"],
                     };
                 }
+            }
             }
 
             return customer;
