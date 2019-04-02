@@ -12,6 +12,9 @@ namespace ShoppingCart.Controllers
     {
         public ActionResult Index(string Username, string Password)
         {
+            if (Session[Username] != null)
+                return RedirectToAction("Gallery", "Product", Session[Username]);
+
             if (Username == null)
                 return View();
 
@@ -20,6 +23,13 @@ namespace ShoppingCart.Controllers
                 return View();
 
             string sessionId = SessionData.CreateSession(customer.CustomerId);
+
+            //string sessionId = Guid.NewGuid().ToString();
+
+            Session[sessionId] = Username;
+            Session[Username] = sessionId;
+
+
             return RedirectToAction("Gallery", "Product", new { sessionId });
         }
     }
