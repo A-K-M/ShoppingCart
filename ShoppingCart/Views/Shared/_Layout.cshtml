@@ -34,10 +34,10 @@
                 <ul class="nav navbar-nav">
                     @if (sessionId != null)
                     {
-                        <li>@Html.ActionLink("View Products", "Gallery", "Product")</li>
-                        <li>@Html.ActionLink("My Cart", "ViewCart", "Cart")</li>
-                        <li>@Html.ActionLink("View My Purchases", "ViewPurchases", "Purchases")</li>
-                        <li>@Html.ActionLink("LogOut", "Index", "Login")</li>
+                        <li>@Html.ActionLink("View Products", "Gallery", "Product", new { sessionId = @sessionId }, null)</li>
+                        <li>@Html.ActionLink("My Cart", "ViewCart", "Cart", new { sessionId = @sessionId }, null)</li>
+                        <li>@Html.ActionLink("View My Purchases", "ViewPurchases", "Purchases", new { sessionId = @sessionId }, null)</li>
+                        <li>@Html.ActionLink("LogOut", "Index", "Login", new { sessionId = @sessionId }, null)</li>
                     }
                 </ul>
             </div>
