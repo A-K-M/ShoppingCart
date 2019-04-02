@@ -13,7 +13,7 @@ namespace ShoppingCart.Database
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = @"SELECT COUNT(*) FROM Customer
+                string sql = @"SELECT COUNT(*) FROM Customers
                     WHERE sessionId = '" + sessionId + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 int count = (int)cmd.ExecuteScalar();
@@ -28,8 +28,8 @@ namespace ShoppingCart.Database
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = @"UPDATE Customer SET SessionId = '" + sessionId + "'" +
-                        " WHERE Id =" + userId;
+                string sql = @"UPDATE Customers SET SessionId = '" + sessionId + "'" +
+                        " WHERE CustomerId =" + userId;
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
             }
@@ -42,7 +42,7 @@ namespace ShoppingCart.Database
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = @"UPDATE Customer SET SessionId = NULL 
+                string sql = @"UPDATE Customers SET SessionId = NULL 
                     WHERE SessionId = '" + sessionId + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
