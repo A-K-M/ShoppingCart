@@ -17,7 +17,7 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string sql = @"SELECT CustomerId, Username, Password from Customer
+                string sql = @"SELECT CustomerId, Username, Password from Customers
                     WHERE Username = '" + username + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -43,7 +43,7 @@ namespace ShoppingCart.Database
                 conn.Open();
 
                 string q = @"SELECT CustomerID 
-                            FROM Customer
+                            FROM Customers
                             WHERE SessionId = '" + sessionId + "'";
 
                 SqlCommand cmd = new SqlCommand(q, conn);
