@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
-using ShoppingCart.Models;
+using ViewClasses.Models;
 
 namespace ShoppingCart.Database
 {
@@ -12,7 +12,6 @@ namespace ShoppingCart.Database
         public static Customer GetCustomerByUsername(string username)
         {
             Customer customer = null;
-
 
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
@@ -32,7 +31,6 @@ namespace ShoppingCart.Database
                     };
                 }
             }
-            return customer;
 
         }
     }
