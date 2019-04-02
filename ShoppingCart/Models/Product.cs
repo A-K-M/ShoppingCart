@@ -10,8 +10,8 @@ namespace ShoppingCart.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
-        public float UnitPrice { get; set; }
-        public byte[] image { get; set; }
+        public decimal UnitPrice { get; set; }
+        public string image { get; set; }
 
     }
 }

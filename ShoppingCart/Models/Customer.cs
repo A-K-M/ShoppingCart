@@ -8,9 +8,10 @@ namespace ShoppingCart.Models
 {
     public class Customer
     {
+        public int CustomerId { get; set; }
         [Required(ErrorMessage = "Username is required")]
         [Display(Name = "Username")]
-        public int CustomerId { get; set; }
+        public string Username { get; set; }
         [Required(ErrorMessage = "Password is required")]
         [Display(Name = "Password")]
         public string Password { get; set; }

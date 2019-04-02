@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
-using ViewClasses.Models;
+using ShoppingCart.Models;
 
 namespace ShoppingCart.Database
 {
@@ -17,7 +17,7 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string sql = @"SELECT CustomerId, Username, Password from Customer
+                string sql = @"SELECT CustomerId, Username, Password from Customers
                     WHERE Username = '" + username + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -26,12 +26,37 @@ namespace ShoppingCart.Database
                 {
                     customer = new Customer()
                     {
-                        Id = (int)reader["CustomerId"],
+                        CustomerId = (int)reader["CustomerId"],
                         Password = (string)reader["Password"]
                     };
                 }
             }
+            return customer;
+        }
 
+        public static Customer GetCustomerBySessionId(string sessionId)
+        {
+            Customer customer = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string q = @"SELECT CustomerID 
+                            FROM Customers
+                            WHERE SessionId = '" + sessionId + "'";
+
+                SqlCommand cmd = new SqlCommand(q, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    customer = new Customer()
+                    {
+                        CustomerId = (int)reader["CustomerId"],
+                    };
+                }
+            }
+            return customer;
         }
     }
 }
