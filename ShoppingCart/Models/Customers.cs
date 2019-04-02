@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ShoppingCart.Models
 {
-    public class CustomersModel
+    public class Customers
     {
         [Required(ErrorMessage = "Customer ID is required")]
         [Display(Name = "Customer ID")]
