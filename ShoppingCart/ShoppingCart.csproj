@@ -132,11 +132,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CartDetails.cs" />
-    <Compile Include="Models\Customers.cs" />
-    <Compile Include="Models\Products.cs" />
-    <Compile Include="Models\PurchaseDetails.cs" />
-    <Compile Include="Models\Purchases.cs" />
+    <Compile Include="Models\CartDetail.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\PurchaseDetail.cs" />
+    <Compile Include="Models\Purchase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

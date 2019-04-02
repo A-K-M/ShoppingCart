@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ShoppingCart.Models
 {
-    public class CartDetails
+    public class CartDetail
     {
         public int CartId { get; set; }
         public int ProductID { get; set; }

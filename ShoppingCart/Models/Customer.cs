@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ShoppingCart.Models
 {
-    public class Customers
+    public class Customer
     {
         [Required(ErrorMessage = "Username is required")]
         [Display(Name = "Username")]
