@@ -15,6 +15,7 @@ namespace ShoppingCart.Controllers
         public ActionResult Gallery()
         {
             List<Product> products = pd.GetAllProducts();
+            ViewData["products"] = products;
             return View(products);
         }
     }
