@@ -10,14 +10,16 @@ namespace ShoppingCart.Database
 {
     public class PurchaseData
     {
-        public static List<Purchase> GetPurchaseByPurchaseId(string PurchaseId)
+        public static List<Purchase> GetPurchaseBySessionId(string sessionId)
         {
             List<Purchase> Purchase = new List<Purchase>();
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
                 conn.Open();
 
-                string sql = @"SELECT OrderDate from Purchase,PurchaseDetails where Purchase.PurchaseID= " + PurchaseId;
+                string sql = @"SELECT OrderDate from Purchases,Customers
+                             where Customers.CustomerId=Purchases.CustomerId 
+                             AND sessionId= '" + sessionId + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -27,6 +29,7 @@ namespace ShoppingCart.Database
                     {
                         PurchaseId = (int)reader["PurchaseId"],
                         CustomerId = (int)reader["CustomerId"],
+
                         OrderDate = (string)reader["OrderDate"]
                     };
 
