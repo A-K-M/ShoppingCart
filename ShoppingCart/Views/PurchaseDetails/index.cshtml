@@ -22,8 +22,12 @@
     {
         foreach (var j in Prod)
         {
-            if (i.ProductId == j.ProductId)
+            foreach (var k in P)
             {
+                if (i.PurchaseId == k.PurchaseId)
+                {
+                    if (i.ProductId == j.ProductId)
+                    {
 
         <tr>
             <td>
@@ -32,14 +36,19 @@
                     <tr><td>@i.PurchaseId</td></tr>
                     <tr><td>@i.ProductId</td></tr>
                     <tr><td>@i.ActivationCode</td></tr>
+                    <tr><td>@k.OrderDate</td></tr>
                 </table>
             </td>
         </tr>
+                    }
+                }
             }
         }
     }
     </table>
-    }
+        
+    
+
 <style>
     td, tr, th {
         padding: 2px;
