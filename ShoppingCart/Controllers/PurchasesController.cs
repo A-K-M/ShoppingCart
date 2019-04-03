@@ -11,11 +11,11 @@ namespace ShoppingCart.Controllers
     public class PurchasesController : Controller
     {
         // GET: Purchases
-        public ActionResult Index(string sessionId)
+        public ActionResult Index(string PurchaseId)
         {
-            List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(sessionId);
+            List<Purchase> Purchase = PurchaseData.GetPurchaseByPurchaseId(PurchaseId);
             ViewData["Purchase"] = Purchase;
-            ViewData["sessionId"] = sessionId;
+           
             return View();
         }
     }
