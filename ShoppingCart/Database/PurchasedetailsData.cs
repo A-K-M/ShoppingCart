@@ -10,14 +10,16 @@ namespace ShoppingCart.Database
 {
     public class PurchaseDetailsData
     {
-        public static List<PurchaseDetails> GetPurchaseDetailsByPurchaseId(int PurchaseID)
+        public static List<PurchaseDetails> GetPurchaseDetailsBySessionId(string sessionId)
         {
             List<PurchaseDetails> PurchaseDetails = new List<PurchaseDetails>();
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
                 conn.Open();
 
-                string sql = @"SELECT PurchaseID,ProductID,ActivationCode from PurchaseDetails where PurchaseID=" + PurchaseID;
+                string sql = @"SELECT PurchaseId,ProductId,ActivationCode from PurchaseDetails,Purchases,Customers
+                             where Customers.CustomerId=Purchases.CustomerId AND Purchases.PurchaseID=PurchaseDetails.PurchaseId
+                             AND sessionId= '" + sessionId +"'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 SqlDataReader reader = cmd.ExecuteReader();
