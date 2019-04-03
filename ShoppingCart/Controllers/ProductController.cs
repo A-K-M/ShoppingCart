@@ -12,8 +12,12 @@ namespace ShoppingCart.Controllers
     {
         ProductData pd = new ProductData();
         // GET: Product
+
         public ActionResult Gallery(string sessionId)
         {
+            if(sessionId == null)
+                return RedirectToAction("Index", "Login");
+
             List<Product> products = pd.GetAllProducts();
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
             ViewData["products"] = products;

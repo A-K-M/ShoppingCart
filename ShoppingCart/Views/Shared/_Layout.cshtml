@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Team 1A Online School</title>
+    <title>@ViewBag.Title - Team 1A .NET Courses</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,15 +22,12 @@
                 </button>
                 @if (sessionId == null)
                 {
-                    @Html.ActionLink("Welcome to Team 1A's Online School! Please Login.", "Index", "Login",
+                    @Html.ActionLink("Welcome to Team 1A .NET Courses! Please Login.", "Index", "Login",
                          null, new { @class = "navbar-brand"})
                 }
-                @*@Html.ActionLink("Shopping Cart", "Index", "Login", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
-                @*check if the user is already loggin or not to show the different nav bar*@
                 <ul class="nav navbar-nav"></ul>
-                @*use this nev bar if the user is logged in*@
                 <ul class="nav navbar-nav">
                     @if (sessionId != null)
                     {
