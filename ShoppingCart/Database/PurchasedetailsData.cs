@@ -19,7 +19,7 @@ namespace ShoppingCart.Database
 
                 string sql = @"SELECT PurchaseId,ProductId,ActivationCode from PurchaseDetails,Purchases,Customers
                              where Customers.CustomerId=Purchases.CustomerId AND Purchases.PurchaseID=PurchaseDetails.PurchaseId
-                             AND sessionId= '" + sessionId +"'";
+                             AND sessionId= '" + sessionId + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -37,5 +37,6 @@ namespace ShoppingCart.Database
             }
             return PurchaseDetails;
         }
-        
+
+    }
 }

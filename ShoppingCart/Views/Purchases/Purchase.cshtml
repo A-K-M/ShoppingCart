@@ -1,7 +1,38 @@
-﻿
+﻿@using ShoppingCart.Models
+
 @{
     ViewBag.Title = "Purchase";
 }
-
+@{
+    List<Purchase> list = (List<Purchase>)ViewData["Purchase"];
+    var sessionId = ViewData["sessionId"];
+}
 <h2>Purchase</h2>
+<table>
+    <tr>
+        <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
+    </tr>
+</table>
+<div style="line-height:20px">&nbsp;</div>
+
+<table align="center" border="1">
+    @foreach (var i in list)
+    {
+        <tr>
+            <td>
+                <table align="center" border="1" width="100%">
+                    @*<tr align="center"><td><img class="border" width="200" height="200" src=@i.ImagePath /></td></tr>*@
+                    <tr><td>@i.PurchaseId</td></tr>
+                    <tr><td>@i.CustomerId</td></tr>
+                    <tr><td>@i.OrderDate</td></tr>
+                </table>
+            </td>
+        </tr>
+    }
+</table>
+<style>
+    td, tr, th {
+        padding: 2px;
+    }
+</style>
 
