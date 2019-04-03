@@ -13,8 +13,8 @@ namespace ShoppingCart.Controllers
         // GET: Purchases
         public ActionResult Index(string PurchaseId)
         {
-            List<Purchase> Purchase = PurchaseData.GetPurchaseByPurchaseId(PurchaseId);
-            ViewData["Purchase"] = Purchase;
+           // List<Purchase> Purchase = PurchaseData.GetPurchaseByPurchaseId(PurchaseId);
+           // ViewData["Purchase"] = Purchase;
            
             return View();
         }
