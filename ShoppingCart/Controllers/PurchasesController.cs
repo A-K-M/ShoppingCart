@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ShoppingCart.Models;
+using ShoppingCart.Database;
 
 namespace ShoppingCart.Controllers
 {
@@ -11,8 +13,8 @@ namespace ShoppingCart.Controllers
         // GET: Purchases
         public ActionResult Index(int CustomerID)
         {
-            List<Purchase> Purchase = PurchaseData.GetPurchaseBy(CustomerID);
-            ViewData["Purchase"] = Purchase;
+            //List<Purchase> Purchase = PurchaseData.GetPurchaseBy(CustomerID);
+            //ViewData["Purchase"] = Purchase;
             return View();
         }
     }
