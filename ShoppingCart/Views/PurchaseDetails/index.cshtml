@@ -7,7 +7,9 @@
     ViewBag.Title = "My Purchases";
 }
 @{
-     List <PurchaseDetails> PP = (List<PurchaseDetails>)ViewData["PurchaseDetails"];
+    List <PurchaseDetails> PP = (List<PurchaseDetails>)ViewData["PurchaseDetails"];
+    var sessionId = ViewData["sessionId"];
+    var products = (List<Product>)ViewData["products"];
 }
 <table>
     <tr>
@@ -22,10 +24,10 @@
         <tr>
             <td>
                 <table align="center" border="1" width="100%">
-                    <tr align="center"><td><img class="border" width="200" height="200" src=@PP.ImagePath /></td></tr>
-                    <tr><td>@PP.PurchaseId</td></tr>
-                    <tr><td>@PP.ProductId</td></tr>
-                    <tr><td>@PP.ActivationCode</td></tr>
+                    @*<tr align="center"><td><img class="border" width="200" height="200" src=@i.ImagePath /></td></tr>*@
+                    <tr><td>@i.PurchaseId</td></tr>
+                    <tr><td>@i.ProductId</td></tr>
+                    <tr><td>@i.ActivationCode</td></tr>
                 </table>
             </td>
         </tr>
