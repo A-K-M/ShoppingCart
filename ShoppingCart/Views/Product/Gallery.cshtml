@@ -14,7 +14,7 @@
 <table>
     <tr>
         <th>Hello, @name </th>
-        <td>@Html.ActionLink("My Purchases", "ViewPurchases", "Purchases", new { sessionId = @sessionId }, null)</td>
+        <td>@Html.ActionLink("My Purchases", "Index", "PurchaseDetails", new { sessionId = @sessionId }, null)</td>
         <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
         <td>@Html.ActionLink("My Cart", "ViewCart", "Cart", new { sessionId = @sessionId }, null)</td>
     </tr>

@@ -38,5 +38,9 @@ namespace ShoppingCart.Database
             return PurchaseDetails;
         }
 
-    }
+        public static void GenerateActivationCode()
+        {
+
+        }
+    }  
 }

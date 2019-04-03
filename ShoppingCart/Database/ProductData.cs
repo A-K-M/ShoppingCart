@@ -41,5 +41,42 @@ namespace ShoppingCart.Database
             }
             return products_list;
         }
+
+        public static bool IsActiveCartId(string sessionId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"SELECT COUNT(*) FROM Customers, CartDetails
+                    WHERE sessionId = '" + sessionId + "' AND CustomerId = CartId" ;
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                int count = (int)cmd.ExecuteScalar();
+                return (count >= 1);
+            }
+        }
+
+        public static void CreateCart(int CustomerId)
+        {
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"UPDATE CartDetails SET CartId = '" + CustomerId + 
+                        "' WHERE CartId =" + CustomerId + " SET";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public static void AddToCart(Product product, string sessionId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"UPDATE CartDetails SET Quantity =  
+                    WHERE SessionId = '" + sessionId + "'";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
