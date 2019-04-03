@@ -22,24 +22,31 @@
     {
         foreach (var j in Prod)
         {
-            if (i.ProductId == j.ProductId)
+            foreach (var k in P)
             {
+                if (i.PurchaseId == k.PurchaseId)
+                {
+                    if (i.ProductId == j.ProductId)
+                    {
 
-                <tr>
-                    <td>
-                        <table align="center" border="1" width="100%">
-                            <tr align="center"><td><img class="border" width="200" height="200" src=@j.ImagePath /></td></tr>
-                            <tr><td>@i.PurchaseId</td></tr>
-                            <tr><td>@i.ProductId</td></tr>
-                            <tr><td>@i.ActivationCode</td></tr>
-                        </table>
-                    </td>
-                </tr>
+                        <tr>
+                            <td>
+                                <table align="center" border="1" width="100%">
+                                    <tr align="center"><td><img class="border" width="200" height="200" src=@j.ImagePath /></td></tr>
+                                    <tr><td>@i.PurchaseId</td></tr>
+                                    <tr><td>@i.ProductId</td></tr>
+                                    <tr><td>@i.ActivationCode</td></tr>
+                                    <tr><td>@k.OrderDate</td></tr>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                }
             }
         }
     }
 </table>
-    }
+    
 <style>
     td, tr, th {
         padding: 2px;
