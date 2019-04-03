@@ -198,11 +198,11 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\PurchaseDetails\index.cshtml" />
     <Content Include="Views\Purchases\Purchase.cshtml" />
+    <Content Include="Views\Cart\ViewCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

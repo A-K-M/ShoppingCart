@@ -1,0 +1,32 @@
+﻿@using ShoppingCart.Models
+
+@{ var cart = (List<CartDetail>)ViewData["cart"];
+    var SessionId = ViewData["SessionId"];
+    var Product = (List<Product>)ViewData["Product"];
+}
+@{
+    ViewBag.Title = "ViewCart";
+}
+
+<h2>
+    View Cart &nbsp; &nbsp; @Html.ActionLink("Continue Shopping", "Gallery", "Product", new {sessionId = @SessionId }, null) &nbsp;|  @Html.ActionLink("Checkout", "Action Method2", "Purchases") &nbsp; Total:
+</h2>
+
+@using (Html.BeginForm("Index", "Purchases", FormMethod.Post))
+{
+    foreach (var cartitem in cart)
+    {
+        foreach (var prod in Product)
+        {
+          //  if (cartitem.ProductId == prod.ProductId)
+          //  {
+                <tr><td> Price: @prod.UnitPrice </td></tr>
+                <tr>
+
+                    <td> Quantity: <input type="number" name="Quantity" min="0"> </td>
+                </tr>
+
+          //  }
+        }
+    }
+}
