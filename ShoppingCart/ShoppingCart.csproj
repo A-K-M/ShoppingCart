@@ -131,7 +131,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\PurchaseDetailsController.cs" />
     <Compile Include="Controllers\PurchasesController.cs" />
     <Compile Include="Database\CartData.cs" />
     <Compile Include="Database\CustomerData.cs" />
