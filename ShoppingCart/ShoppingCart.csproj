@@ -199,6 +199,7 @@
     <Content Include="Views\PurchaseDetails\index.cshtml" />
     <Content Include="Views\Purchases\Purchase.cshtml" />
     <Content Include="Views\Cart\ViewCart.cshtml" />
+    <Content Include="Views\Purchases\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
