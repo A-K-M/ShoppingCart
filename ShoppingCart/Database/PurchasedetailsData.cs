@@ -10,9 +10,9 @@ namespace ShoppingCart.Database
 {
     public class PurchaseDetailsData
     {
-        public static List<PurchaseDetail> GetPurchaseDetailsByPurchaseId(int PurchaseID)
+        public static List<PurchaseDetails> GetPurchaseDetailsByPurchaseId(int PurchaseID)
         {
-            List<PurchaseDetail> PurchaseDetails = new List<PurchaseDetail>();
+            List<PurchaseDetails> PurchaseDetails = new List<PurchaseDetails>();
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
                 conn.Open();
@@ -23,7 +23,7 @@ namespace ShoppingCart.Database
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    PurchaseDetail _PurchaseDetails = new PurchaseDetail()
+                    PurchaseDetails _PurchaseDetails = new PurchaseDetails()
                     {
                         PurchaseId = (int)reader["PurchaseId"],
                         ProductId = (int)reader["ProductID"],
