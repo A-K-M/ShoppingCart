@@ -14,8 +14,13 @@ namespace ShoppingCart.Controllers
         public ActionResult Index(string sessionId)
         {
             List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(sessionId);
+            List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(sessionId);
+            ProductData pd = new ProductData();
+            List<Product> products = pd.GetAllProducts();
             ViewData["PurchaseDetails"] = PurchaseDetails;
             ViewData["sessionId"] = sessionId;
+            ViewData["Purchase"] = Purchase;
+            ViewData["products"] = products;
             return View();
         }
     }

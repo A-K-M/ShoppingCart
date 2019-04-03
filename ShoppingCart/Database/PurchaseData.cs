@@ -17,8 +17,8 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string sql = @"SELECT PurchaseId,CustomerId,OrderDate from Purchases,Customer,PurchaseDetails
-                             where Customers.CustomerId=Purchases.CustomerId AND Purchases.PurchaseID=PurchaseDetails.PurchaseId
+                string sql = @"SELECT OrderDate from Purchases,Customers
+                             where Customers.CustomerId=Purchases.CustomerId 
                              AND sessionId= '" + sessionId + "'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -29,6 +29,7 @@ namespace ShoppingCart.Database
                     {
                         PurchaseId = (int)reader["PurchaseId"],
                         CustomerId = (int)reader["CustomerId"],
+
                         OrderDate = (string)reader["OrderDate"]
                     };
 
