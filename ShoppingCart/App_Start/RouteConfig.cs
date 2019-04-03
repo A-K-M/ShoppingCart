@@ -18,6 +18,11 @@ namespace ShoppingCart
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Gallery",
+                url: "{controller}/{action}/{sessionId}",
+                defaults: new { controller = "Product", action = "Gallery", sessionId = UrlParameter.Optional }
+            );
         }
     }
 }
