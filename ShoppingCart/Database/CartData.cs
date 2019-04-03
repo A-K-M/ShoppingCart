@@ -31,7 +31,7 @@ namespace ShoppingCart.Database
                         cart.Add(new CartDetail()
                         {
                             CartId = (int)reader["CartId"],
-                            ProductID = (int)reader["ProductID"],
+                            ProductId = (int)reader["ProductId"],
                             Quantity = (int)reader["Quantity"]
                         });
                     }

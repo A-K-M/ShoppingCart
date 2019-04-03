@@ -2,7 +2,7 @@
 
 @{ var cart = (List<CartDetail>)ViewData["cart"];
     var SessionId = ViewData["SessionId"];
-    var Product = (List<Product>)ViewData["Product"];
+    var Product = (List<Product>)ViewData["Products"];
 }
 @{
     ViewBag.Title = "ViewCart";
@@ -18,15 +18,14 @@
     {
         foreach (var prod in Product)
         {
-          //  if (cartitem.ProductId == prod.ProductId)
-          //  {
+            if (cartitem.ProductId == prod.ProductId)
+            {
+                <table>
                 <tr><td> Price: @prod.UnitPrice </td></tr>
-                <tr>
+                <tr><td> Quantity: <input type="number" name="Quantity" min="0"> </td></tr>
+                </table>
 
-                    <td> Quantity: <input type="number" name="Quantity" min="0"> </td>
-                </tr>
-
-          //  }
+            }
         }
     }
 }
