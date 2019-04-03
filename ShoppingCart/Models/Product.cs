@@ -11,7 +11,7 @@ namespace ShoppingCart.Models
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public decimal UnitPrice { get; set; }
-        public string image { get; set; }
+        public string ImagePath { get; set; }
 
     }
 }

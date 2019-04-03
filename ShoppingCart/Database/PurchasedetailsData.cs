@@ -1,16 +1,18 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using ShoppingCart.Models;
 
 namespace ShoppingCart.Database
 {
     public class PurchaseDetailsData
     {
-        public static List<PurchaseDetails> GetPurchaseDetailsByPurchaseId(int PurchaseID)
+        public static List<PurchaseDetail> GetPurchaseDetailsByPurchaseId(int PurchaseID)
         {
-            List<PurchaseDetails> PurchaseDetails = new List<PurchaseDetails>();
+            List<PurchaseDetail> PurchaseDetails = new List<PurchaseDetail>();
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
                 conn.Open();
@@ -21,10 +23,10 @@ namespace ShoppingCart.Database
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    PurchaseDetails _PurchaseDetails = new PurchaseDetails()
+                    PurchaseDetail _PurchaseDetails = new PurchaseDetail()
                     {
                         PurchaseId = (int)reader["PurchaseId"],
-                        ProductID = (int)reader["ProductID"],
+                        ProductId = (int)reader["ProductID"],
                         ActivationCode = (string)reader["ActivationCode"]
                     };
 
