@@ -39,5 +39,64 @@ namespace ShoppingCart.Database
             }
             return cart;
         }
+        public static bool IsActiveCartId(int productId, string sessionId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"SELECT COUNT(*) FROM Customers, CartDetails
+                    WHERE sessionId = '" + sessionId + "' AND CustomerId = CartId AND ProductId = " + productId;
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                int count = (int)cmd.ExecuteScalar();
+                return (count >= 1);
+            }
+        }
+
+        public static void CreateCart(int CustomerId, int ProductId)
+        {
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"INSERT INTO CartDetails (CartId, ProductId, Quantity)
+                            VALUES ( " + CustomerId + ", " + ProductId + ", 1)";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public static void AddToCart(int ProductId, int CustomerId, string sessionId)
+        {
+            if (IsActiveCartId(ProductId, sessionId) == false)
+                CreateCart(CustomerId, ProductId);
+            else
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sql = @"SELECT Quantity FROM CartDetails, Customers 
+                                        WHERE SessionId = '" + sessionId + "' AND CartDetails.ProductId = " + ProductId;
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.ExecuteNonQuery();
+                    int quantity = (int)cmd.ExecuteScalar();
+                    sql = @"UPDATE CartDetails SET Quantity = " + (quantity + 1) +
+                                " WHERE CartId = '" + CustomerId + "' AND ProductId = " + ProductId;
+                    cmd = new SqlCommand(sql, conn);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //public int GetCartQuantity(int CartId)
+        //{
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
+        //        string sql = @"SELECT COUNT(*) FROM CartDetails
+        //            WHERE CartId = " + CartId;
+        //        SqlCommand cmd = new SqlCommand(sql, conn);
+        //        int count = (int)cmd.ExecuteScalar();
+        //        return count;
+        //    }
+        //}
     }
 }

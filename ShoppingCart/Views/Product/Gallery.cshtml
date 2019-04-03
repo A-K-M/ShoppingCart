@@ -9,6 +9,7 @@
     var customer = (Customer)ViewData["customer"];
     var name = customer.FirstName + " " + customer.LastName;
     var sessionId = ViewData["sessionId"];
+    var cartQuantity = ViewData["cartQuantity"];
 }
 
 <table>
@@ -17,6 +18,7 @@
         <td>@Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = @sessionId }, null)</td>
         <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
         <td>@Html.ActionLink("My Cart", "ViewCart", "Cart", new { sessionId = @sessionId }, null)</td>
+        <td>@cartQuantity</td>
     </tr>
 </table>
 
@@ -33,6 +35,8 @@
                     <tr><td>@product.ProductName</td></tr>
                     <tr><td>@product.ProductDescription</td></tr>
                     <tr><td>@product.UnitPrice - Add to Cart</td></tr>
+                    <tr><td>$@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart", 
+                                                  new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)</td></tr>
                 </table>
             </td>
         </tr>

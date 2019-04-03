@@ -26,5 +26,11 @@ namespace ShoppingCart.Controllers
             ViewData["products"] = products;
             return View();
         }
+
+        public ActionResult AddToCart(int ProductId, int CustomerId, string sessionId)
+        {
+            CartData.AddToCart(ProductId, CustomerId, sessionId);
+            return RedirectToAction("Gallery", "Product", new { sessionId = @sessionId });
+        }
     }
 }
