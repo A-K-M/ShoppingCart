@@ -10,5 +10,7 @@ namespace ShoppingCart.Models
         public int PurchaseId {get; set;}
         public int ProductId {get; set;}
         public string ActivationCode {get; set;}
+        public Product Product { get; set; }
+        public Purchase Purchase { get; set; }
     }
 }

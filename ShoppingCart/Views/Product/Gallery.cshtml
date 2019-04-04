@@ -9,34 +9,39 @@
     var customer = (Customer)ViewData["customer"];
     var name = customer.FirstName + " " + customer.LastName;
     var sessionId = ViewData["sessionId"];
+    var cartQuantity = ViewData["cartQuantity"];
 }
 
 <table>
     <tr>
         <th>Hello, @name </th>
-        <td>@Html.ActionLink("My Purchases", "Index", "PurchaseDetails", new { sessionId = @sessionId }, null)</td>
+        <td>@Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = @sessionId }, null)</td>
         <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
         <td>@Html.ActionLink("My Cart", "ViewCart", "Cart", new { sessionId = @sessionId }, null)</td>
+        <td>@cartQuantity</td>
     </tr>
 </table>
 
 <div style="line-height:20px">&nbsp;</div>
 
 <table align="center" border="1">
-
-    @foreach (var product in products)
-    {
+    
+        @foreach (var product in products)
+        {
         <tr>
             <td>
-                <table align="center" border="1" width="100%">
+                <table align="center" border="1" width="80%">
                     <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
                     <tr><td>@product.ProductName</td></tr>
                     <tr><td>@product.ProductDescription</td></tr>
                     <tr><td>@product.UnitPrice - Add to Cart</td></tr>
+                    <tr><td>$@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart", 
+                                                  new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)</td></tr>
                 </table>
             </td>
         </tr>
-    }
+        }
+    
 </table>
 
 <style>

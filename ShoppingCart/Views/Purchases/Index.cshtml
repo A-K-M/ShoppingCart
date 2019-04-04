@@ -1,13 +1,13 @@
 ﻿@using ShoppingCart.Models
-@model PurchaseDetails
+@model Purchase
 
 @{
     ViewBag.Title = "My Purchases";
 }
 @{
-    List <PurchaseDetails> PP = (List<PurchaseDetails>)ViewData["PurchaseDetails"];
+    List<PurchaseDetails> PP = (List<PurchaseDetails>)ViewData["PurchaseDetails"];
     var sessionId = ViewData["sessionId"];
-    List <Product> Prod = (List<Product>)ViewData["products"];
+    List<Product> Prod = (List<Product>)ViewData["products"];
     List<Purchase> P = (List<Purchase>)ViewData["Purchase"];
 }
 <table>
@@ -20,26 +20,20 @@
 <table align="center" border="1">
     @foreach (var i in PP)
     {
-        foreach (var j in Prod)
-        {
-            if (i.ProductId == j.ProductId)
-            {
-
         <tr>
             <td>
                 <table align="center" border="1" width="100%">
-                    <tr align="center"><td><img class="border" width="200" height="200" src=@j.ImagePath /></td></tr>
+                    <tr align="center"><td><img class="border" width="200" height="200" src=@i.Product.ImagePath /></td></tr>
                     <tr><td>@i.PurchaseId</td></tr>
                     <tr><td>@i.ProductId</td></tr>
                     <tr><td>@i.ActivationCode</td></tr>
+                    <tr><td>@i.Purchase.OrderDate</td></tr>
                 </table>
             </td>
         </tr>
-            }
-        }
     }
-    </table>
-    }
+</table>
+    
 <style>
     td, tr, th {
         padding: 2px;
