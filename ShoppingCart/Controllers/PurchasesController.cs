@@ -14,28 +14,26 @@ namespace ShoppingCart.Controllers
         public ActionResult Index(string SessionId)
         {
             int currentCustomer = 0;
-            Customer customer = CustomerData.GetCustomerBySessionId(SessionId);
-            List<Purchase> purchases = PurchaseDetailsData.GetPurchaseDetailsByCustomerId(customer.CustomerId);
-            //List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(SessionId);
-            //List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
+            List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(SessionId);
+            List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
+            int cartQuantity = CartData.GetCartQuantity(SessionId);
 
-            //foreach (var purchase in PurchaseDetails)
-            //{
-            //    purchase.Purchase = PurchaseDetailsData.GetPurchaseByPurchaseId(purchase.PurchaseId);
-            //    purchase.Product = PurchaseDetailsData.GetProductByProductId(purchase.ProductId);
-            //    foreach (var i in Purchase)
-            //    {
-            //        if (i.PurchaseId == purchase.PurchaseId)
-            //        { currentCustomer = i.CustomerId; }
-            //    }
-            //    purchase.Quantity = PurchaseDetailsData.getpurchasedproductscount(currentCustomer, purchase.ProductId);
-            //}
-           
-        
+            foreach (var purchase in PurchaseDetails)
+            {
+                purchase.Purchase = PurchaseDetailsData.GetPurchaseByPurchaseId(purchase.PurchaseId);
+                purchase.Product = PurchaseDetailsData.GetProductByProductId(purchase.ProductId);
+                foreach (var i in Purchase)
+                {
+                    if (i.PurchaseId == purchase.PurchaseId)
+                    { currentCustomer = i.CustomerId; }
+                }
+                purchase.Quantity = PurchaseDetailsData.getpurchasedproductscount(currentCustomer, purchase.ProductId);
+            }
 
-
-        ViewData["PurchaseDetails"] = purchases;
+            ViewData["PurchaseDetails"] = PurchaseDetails;
             ViewData["sessionId"] = SessionId;
+            ViewData["cartQuantity"] = cartQuantity;
+
             return View();
         }
     }
