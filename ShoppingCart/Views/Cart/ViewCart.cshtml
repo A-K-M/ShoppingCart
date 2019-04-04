@@ -2,21 +2,8 @@
 
 @{ var cart = (List<CartDetail>)ViewData["cart"];
     var SessionId = ViewData["SessionId"];
-    var Product = (List<Product>)ViewData["Products"];
-    decimal TotalCost = 0;
-    foreach (var cartitem in cart)
-    {
-        foreach (var prod in Product)
-        {
-            if (cartitem.ProductId == prod.ProductId)
-            {
-                decimal price = cartitem.Quantity * prod.UnitPrice;
-                TotalCost = TotalCost + price;
-            }
-        }
-    }
+    var Product = (List<Product>)ViewData["Product"];
 }
-
 @{
     ViewBag.Title = "ViewCart";
 }
@@ -59,18 +46,14 @@
 
 @using (Html.BeginForm("Index", "Purchases", FormMethod.Post))
 {
-    if (cart == null)
+    foreach (var cartitem in cart)
     {
-        <h3> Your cart is Empty </h3>
-    }
-    if (cart != null)
-    {
-        foreach (var cartitem in cart)
+        foreach (var prod in Product)
         {
-            foreach (var prod in Product)
-            {
-                if (cartitem.ProductId == prod.ProductId)
-                {
+          //  if (cartitem.ProductId == prod.ProductId)
+          //  {
+                <tr><td> Price: @prod.UnitPrice </td></tr>
+                <tr>
 
         <h2>Two Equal Columns</h2>
         <div class="row">
@@ -89,10 +72,7 @@
                 <p> Price: $@prod.UnitPrice</p>
                 <p> Quantity: <input type="number" value=@cartitem.Quantity name="Quantity" min="0"></p>
 
-            </div>
-        </div>
-                }
-            }
+          //  }
         }
     }
 }
