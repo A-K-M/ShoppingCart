@@ -116,6 +116,19 @@ namespace ShoppingCart.Database
             }
         }
 
+        public static int GetCartQuantity(string sessionId)
+        {
+            List<CartDetail> cart = CartData.GetCart(sessionId);
+
+            int quantity = 0;
+            foreach (var cartItem in cart)
+            {
+                quantity += cartItem.Quantity;
+
+            }
+            return quantity;
+        }
+
         //public int GetCartQuantity(int CartId)
         //{
         //    using (SqlConnection conn = new SqlConnection(connectionString))

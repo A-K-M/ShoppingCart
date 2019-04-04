@@ -5,7 +5,7 @@
     ViewBag.Title = "My Purchases";
 }
 @{
-    List<PurchaseDetails> purchaseDetails = (List<PurchaseDetails>)ViewData["PurchaseDetails"];
+    List<Purchase> purchases = (List<Purchase>)ViewData["PurchaseDetails"];
     var sessionId = ViewData["sessionId"];
 
 }
@@ -46,27 +46,43 @@
 </style>
 
 
-    @foreach (var item in purchaseDetails)
+@foreach (var item in purchases)
+{
+    foreach (var pd in item.PurchaseDetails)
     {
-      
         <div class="row">
             <div class="column">
                 <table width="300" border="1" cellspacing="0" cellpadding="50" align="right">
-                    <td>
-                        <center>
-                            <p><img class="border" width="200" height="200" src=@item.Product.ImagePath /></p>
-                            <p><b> @item.Product.ProductName </b></p>
-                            <p>@item.Product.ProductDescription </p>
-                        </center>
-                    </td>
+                    <tr>
+                        <td>
+                            <center>
+                                <p><img class="border" width="200" height="200" src=@pd.Product.ImagePath /></p>
+                                <p><b> @pd.Product.ProductName </b></p>
+                                <p>@pd.Product.ProductDescription </p>
+                            </center>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="column">
-                <p> Purchased On: @item.Purchase.OrderDate</p>
-                <p> Product ID: @item.ProductId</p>
+                <p> Purchased On: @item.OrderDate</p>
+                <p> Product ID: @pd.ProductId</p>
                 <p>Purchase ID : @item.PurchaseId</p>
-                <p>Activation Code: @item.ActivationCode</p>
+                <p>Activation Code: 
+                    @if (pd.ActCodes.Count() == 1)
+                    {
+                        var code = pd.ActCodes.ElementAt(0).ToString();
+                        @Html.TextBoxFor(abc => code);
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(pdd => pd.ActCodes, pd.ActCodes.Select(s => new SelectListItem { Text = s, Value = s }))
+                    }
+                </p>
+                <p>Quantity: @pd.Quantity</p>
+
             </div>
         </div>
     }
-    
+}
+
