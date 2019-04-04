@@ -19,6 +19,10 @@ namespace ShoppingCart.Controllers
             List<CartDetail> cart = CartData.GetCart(sessionId);
             ProductData pd = new ProductData();
             List<Product> products = pd.GetAllProducts();
+            foreach (var cartitem in cart)
+            {
+                cartitem.Product = CartData.GetProductByProductId(cartitem.ProductId);
+            }
 
             ViewData["customer"] = customer;
             ViewData["SessionId"] = sessionId;

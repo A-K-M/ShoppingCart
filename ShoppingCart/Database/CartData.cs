@@ -32,13 +32,43 @@ namespace ShoppingCart.Database
                         {
                             CartId = (int)reader["CartId"],
                             ProductId = (int)reader["ProductID"],
-                            Quantity = (int)reader["Quantity"]
+                            Quantity = (int)reader["Quantity"],
                         });
                     }
                 }
             }
             return cart;
         }
+
+        public static Product GetProductByProductId(int ProductId)
+        {
+            Product product = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string q = @"SELECT ProductId, ProductName, ProductDescription, UnitPrice, Image
+                            from Products
+                            WHERE ProductId = " + ProductId;
+
+                SqlCommand cmd = new SqlCommand(q, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    product = new Product()
+                    {
+                        ProductId = (int)reader["ProductId"],
+                        ProductName = (string)reader["ProductName"],
+                        ProductDescription = (string)reader["ProductDescription"],
+                        UnitPrice = (decimal)reader["UnitPrice"],
+                        ImagePath = (string)reader["Image"]
+                    };
+                }
+            }
+            return product;
+        }
+
         public static bool IsActiveCartId(int productId, string sessionId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
