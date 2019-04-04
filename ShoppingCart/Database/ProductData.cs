@@ -34,7 +34,7 @@ namespace ShoppingCart.Database
                             ProductName = (string)reader["ProductName"],
                             ProductDescription = (string)reader["ProductDescription"],
                             UnitPrice = (decimal)reader["UnitPrice"],
-                            ImagePath = (string)reader["ImagePath"]
+                            ImagePath = (string)reader["Image"]
                         });
                     }
                 }

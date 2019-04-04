@@ -142,7 +142,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MD5Hash\MD5Hash.cs" />
+    <Compile Include="Hash\MD5Hash.cs" />
     <Compile Include="Models\CartDetail.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Product.cs" />
