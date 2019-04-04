@@ -20,8 +20,8 @@ namespace ShoppingCart
             );
             routes.MapRoute(
                 name: "Gallery",
-                url: "{controller}/{action}/{sessionId}",
-                defaults: new { controller = "Product", action = "Gallery", sessionId = UrlParameter.Optional }
+                url: "{controller}/{action}/{sessionId}/{search}",
+                defaults: new { controller = "Product", action = "Gallery", sessionId = UrlParameter.Optional, search = UrlParameter.Optional }
             );
         }
     }

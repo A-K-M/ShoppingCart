@@ -17,9 +17,9 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string sql = @"SELECT PurchaseDetails.PurchaseId,PurchaseDetails.ProductId,ActivationCode from PurchaseDetails,Purchases,Customers
+                string sql = @"SELECT PurchaseDetails.ProductId,PurchaseDetails.PurchaseId,ActivationCode from PurchaseDetails,Purchases,Customers
                              where Customers.CustomerId=Purchases.CustomerId AND Purchases.PurchaseID=PurchaseDetails.PurchaseId
-                             AND sessionId= '" + sessionId + "'";
+                             AND sessionId= '" + sessionId + "'" ;
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -28,7 +28,7 @@ namespace ShoppingCart.Database
                     PurchaseDetails _PurchaseDetails = new PurchaseDetails()
                     {
                         PurchaseId = (int)reader["PurchaseId"],
-                        ProductId = (int)reader["ProductID"],
+                        ProductId = (int)reader["ProductId"],
                         ActivationCode = (string)reader["ActivationCode"]
                     };
 
@@ -46,7 +46,7 @@ namespace ShoppingCart.Database
                 conn.Open();
 
                 string sql = @"SELECT OrderDate, CustomerId, PurchaseId FROM Purchases
-                             WHERE PurchaseId = " + PurchaseId;
+                             WHERE PurchaseId = " + PurchaseId ;
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -70,7 +70,7 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string sql = @"SELECT ProductId, ProductName, ProductDescription, UnitPrice, Image
+                string sql = @"SELECT distinct ProductId, ProductName, ProductDescription, UnitPrice, Image
                             FROM Products WHERE ProductId =" + ProductId;
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -89,10 +89,25 @@ namespace ShoppingCart.Database
             return product;
         }
 
-
-        public static void GenerateActivationCode()
+        public static int getpurchasedproductscount(int CustomerId, int ProductId)
         {
+            int count = 0;
+            using (SqlConnection conn = new SqlConnection(Data.connectionString))
+            {
+                conn.Open();
+                string sql = @"select count(pd.ActivationCode) as Quantity from PurchaseDetails pd, Customers c, Purchases p 
+                where 
+               p.CustomerId = c.CustomerId and p.PurchaseId = pd.PurchaseId 
+                and c.CustomerId = " + CustomerId + "and pd.ProductId = " + ProductId;
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    count = (int)reader["Quantity"];
+                }
 
+                return count;
+            }
         }
-    }  
+    }
 }

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ShoppingCart.Models.Product>
+@using ShoppingCart.Models
+@{
+
+    var customer = (Customer)ViewData["customer"];
+    var name = customer.FirstName + " " + customer.LastName;
+    var sessionId = ViewData["sessionId"];
+    var cartQuantity = ViewData["cartQuantity"];
+}
+<table align="center" border="1">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <table align="center" border="1" width="80%">
+                    <tr>
+                        <td>
+                            <img class="border" width="200" height="200" src=@Html.DisplayFor(modelItem => item.ImagePath) />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductDescription)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitPrice) - 
+                            @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
+                               new { productId = item.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    }
+</table>
