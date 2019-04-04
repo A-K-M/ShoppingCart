@@ -22,30 +22,63 @@
     </tr>
 </table>
 
+<!-- Search form -->
+<div class="md-form ">
+    <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search" onkeyup="if (event.keyCode == 13) search(); else if (event.keyCode == 8) resetSearch();" >
+</div>
+
+
 <div style="line-height:20px">&nbsp;</div>
 
-<table align="center" border="1">
-    
+<div id="productList">
+    <table align="center" border="1">
+
         @foreach (var product in products)
         {
-        <tr>
-            <td>
-                <table align="center" border="1" width="80%">
-                    <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
-                    <tr><td>@product.ProductName</td></tr>
-                    <tr><td>@product.ProductDescription</td></tr>
-                    <tr><td>@product.UnitPrice - Add to Cart</td></tr>
-                    <tr><td>$@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart", 
-                                                  new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)</td></tr>
-                </table>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <table align="center" border="1" width="80%">
+                        <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
+                        <tr><td>@product.ProductName</td></tr>
+                        <tr><td>@product.ProductDescription</td></tr>
+                        <tr><td>@product.UnitPrice - Add to Cart</td></tr>
+                        <tr>
+                            <td>
+                                $@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
+        new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
         }
-    
-</table>
+    </table>
+</div>
 
 <style>
     td, tr, th {
         padding: 2px;
     }
 </style>
+
+<script>
+    var session = '@(ViewData["sessionId"])';
+    var searchObj = document.getElementById('search');
+    function search() {
+        //console.log('the user searches for ' + searchObj.value);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("productList").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "GetSearchData?searchObj=" + searchObj.value + "&sessionId=" + session, true);
+        xhttp.send();
+    }
+
+    function resetSearch() {
+        if (searchObj.value == "") {
+            search();
+        }
+    }
+</script>

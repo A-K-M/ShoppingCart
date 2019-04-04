@@ -34,5 +34,41 @@ namespace ShoppingCart.Controllers
             ViewData["cartQuantity"] = quantity;
             return View(products);
         }
+        public ViewResult adf(string sessionId, string searchObj)
+        {
+            List<Product> products = pd.GetSearchProducts(searchObj);
+            Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
+            List<CartDetail> cart = CartData.GetCart(sessionId);
+
+            int quantity = 0;
+            foreach (var cartItem in cart)
+            {
+                quantity += cartItem.Quantity;
+                
+            }
+            ViewData["products"] = products;
+            ViewData["customer"] = customer;
+            ViewData["sessionId"] = sessionId;
+            ViewData["cartQuantity"] = quantity;
+            return View(products);
+        }
+
+        public PartialViewResult GetSearchData(string searchObj, string sessionId)
+        {
+            Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
+            List<CartDetail> cart = CartData.GetCart(sessionId);
+            List<Product> products = pd.GetSearchProducts(searchObj);
+
+            int quantity = 0;
+            foreach (var cartItem in cart)
+            {
+                quantity += cartItem.Quantity;
+
+            }
+            ViewData["customer"] = customer;
+            ViewData["sessionId"] = sessionId;
+            ViewData["cartQuantity"] = quantity;
+            return PartialView(products);
+        }
     }
 }
