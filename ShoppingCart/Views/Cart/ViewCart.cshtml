@@ -4,6 +4,11 @@
     var SessionId = ViewData["SessionId"];
     var Product = (List<Product>)ViewData["Product"];
     decimal TotalCost = 0;
+    foreach (var cartitem in cart)
+    {
+        decimal price = cartitem.Quantity * cartitem.Product.UnitPrice;
+        TotalCost = TotalCost + price;
+    }
 }
 @{
     ViewBag.Title = "ViewCart";
@@ -49,9 +54,7 @@
 {
     foreach (var cartitem in cart)
     {
-     <tr><td> Price: @cartitem.Product.UnitPrice </td></tr>
-                
-
+     
         <h2>Two Equal Columns</h2>
         <div class="row">
             <div class="column">
@@ -71,8 +74,7 @@
 
             </div>
             </div>
-            }
-                
-        }
     }
-}
+ }
+
+
