@@ -3,6 +3,7 @@
 @{ var cart = (List<CartDetail>)ViewData["cart"];
     var SessionId = ViewData["SessionId"];
     var Product = (List<Product>)ViewData["Product"];
+    decimal TotalCost = 0;
 }
 @{
     ViewBag.Title = "ViewCart";
@@ -48,12 +49,8 @@
 {
     foreach (var cartitem in cart)
     {
-        foreach (var prod in Product)
-        {
-          //  if (cartitem.ProductId == prod.ProductId)
-          //  {
-                <tr><td> Price: @prod.UnitPrice </td></tr>
-                <tr>
+     <tr><td> Price: @cartitem.Product.UnitPrice </td></tr>
+                
 
         <h2>Two Equal Columns</h2>
         <div class="row">
@@ -61,18 +58,21 @@
                 <table width="300" border="1" cellspacing="0" cellpadding="50" align="right">
                     <td>
                         <center>
-                            <p><img class="border" width="200" height="200" src=@prod.ImagePath /></p>
-                            <p><b> @prod.ProductName </b></p>
-                            <p>@prod.ProductDescription </p>
+                            <p><img class="border" width="200" height="200" src=@cartitem.Product.ImagePath /></p>
+                            <p><b> @cartitem.Product.ProductName </b></p>
+                            <p>@cartitem.Product.ProductDescription </p>
                         </center>
                     </td>
                 </table>
             </div>
             <div class="column">
-                <p> Price: $@prod.UnitPrice</p>
+                <p> Price: $@cartitem.Product.UnitPrice</p>
                 <p> Quantity: <input type="number" value=@cartitem.Quantity name="Quantity" min="0"></p>
 
-          //  }
+            </div>
+            </div>
+            }
+                
         }
     }
 }
