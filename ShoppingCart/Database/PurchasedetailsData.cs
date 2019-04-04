@@ -5,37 +5,74 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using ShoppingCart.Models;
+using System.Diagnostics;
+using ShoppingCart.Util;
 
 namespace ShoppingCart.Database
 {
     public class PurchaseDetailsData
     {
-        public static List<PurchaseDetails> GetPurchaseDetailsBySessionId(string sessionId)
+        public static List<Purchase> GetPurchaseDetailsByCustomerId(int customerid)
         {
-            List<PurchaseDetails> PurchaseDetails = new List<PurchaseDetails>();
+            List<Purchase> purchases = new List<Purchase>();
+
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
                 conn.Open();
 
-                string sql = @"SELECT PurchaseDetails.ProductId,PurchaseDetails.PurchaseId,ActivationCode from PurchaseDetails,Purchases,Customers
-                             where Customers.CustomerId=Purchases.CustomerId AND Purchases.PurchaseID=PurchaseDetails.PurchaseId
-                             AND sessionId= '" + sessionId + "'" ;
+                //string sql = @"SELECT PurchaseDetails.ProductId,PurchaseDetails.PurchaseId,ActivationCode from PurchaseDetails,Purchases,Customers
+                //             where Customers.CustomerId=Purchases.CustomerId AND Purchases.PurchaseID=PurchaseDetails.PurchaseId
+                //             AND sessionId= '" + sessionId + "'" ;
+                string sql = @"select PurchaseId, CustomerId, OrderDate from Purchases where CustomerId=@customerid";
                 SqlCommand cmd = new SqlCommand(sql, conn);
-
+                cmd.Parameters.AddWithValue("@customerid", customerid);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    PurchaseDetails _PurchaseDetails = new PurchaseDetails()
+                    Purchase purchase = new Purchase()
                     {
                         PurchaseId = (int)reader["PurchaseId"],
-                        ProductId = (int)reader["ProductId"],
-                        ActivationCode = (string)reader["ActivationCode"]
+                        CustomerId = (int) reader["CustomerId"],
+                        OrderDate = (DateTime) reader["OrderDate"]
                     };
 
-                    PurchaseDetails.Add(_PurchaseDetails);
+                    purchases.Add(purchase);
                 }
+                reader.Close();
+
+                foreach(Purchase purchase in purchases)
+                {
+                    List<PurchaseDetails> purchaseDetails = new List<PurchaseDetails>();
+                    sql = @"select p.ProductId, p.ProductName, p.ProductDescription, p.UnitPrice, p.Image, pd.PurchaseId, pd.ActivationCode, pd.Quantity from Products p, PurchaseDetails pd where p.ProductId=pd.ProductId and pd.PurchaseId=@purchaseid";
+                    cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@purchaseid", purchase.PurchaseId);
+                    reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        PurchaseDetails det = new PurchaseDetails
+                        {
+                            Product = new Product()
+                            {
+                                ImagePath = (string)reader["Image"],
+                                ProductDescription = (string)reader["ProductDescription"],
+                                ProductId = (int)reader["ProductId"],
+                                ProductName = (string)reader["ProductName"]
+                            },
+                            //ActCodes = ShopUtil.GetActivationSelectList((string)reader["ActivationCode"]),
+                            ActCodes = ShopUtil.GetActivationList((string)reader["ActivationCode"]),
+                            ProductId = (int)reader["ProductId"],
+                            PurchaseId = (int)reader["PurchaseId"],
+                            Quantity = (int)reader["Quantity"]
+                        };
+                        purchaseDetails.Add(det);
+                    }
+
+                    purchase.PurchaseDetails = purchaseDetails;
+                    reader.Close();
+                }
+
             }
-            return PurchaseDetails;
+            return purchases;
         }
 
         public static Purchase GetPurchaseByPurchaseId(int PurchaseId)
@@ -109,5 +146,7 @@ namespace ShoppingCart.Database
                 return count;
             }
         }
+        
+
     }
 }

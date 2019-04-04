@@ -14,25 +14,27 @@ namespace ShoppingCart.Controllers
         public ActionResult Index(string SessionId)
         {
             int currentCustomer = 0;
-            List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(SessionId);
-            List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
+            Customer customer = CustomerData.GetCustomerBySessionId(SessionId);
+            List<Purchase> purchases = PurchaseDetailsData.GetPurchaseDetailsByCustomerId(customer.CustomerId);
+            //List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(SessionId);
+            //List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
 
-            foreach (var purchase in PurchaseDetails)
-            {
-                purchase.Purchase = PurchaseDetailsData.GetPurchaseByPurchaseId(purchase.PurchaseId);
-                purchase.Product = PurchaseDetailsData.GetProductByProductId(purchase.ProductId);
-                foreach (var i in Purchase)
-                {
-                    if (i.PurchaseId == purchase.PurchaseId)
-                    { currentCustomer = i.CustomerId; }
-                }
-                purchase.Quantity = PurchaseDetailsData.getpurchasedproductscount(currentCustomer, purchase.ProductId);
-            }
+            //foreach (var purchase in PurchaseDetails)
+            //{
+            //    purchase.Purchase = PurchaseDetailsData.GetPurchaseByPurchaseId(purchase.PurchaseId);
+            //    purchase.Product = PurchaseDetailsData.GetProductByProductId(purchase.ProductId);
+            //    foreach (var i in Purchase)
+            //    {
+            //        if (i.PurchaseId == purchase.PurchaseId)
+            //        { currentCustomer = i.CustomerId; }
+            //    }
+            //    purchase.Quantity = PurchaseDetailsData.getpurchasedproductscount(currentCustomer, purchase.ProductId);
+            //}
            
         
 
 
-        ViewData["PurchaseDetails"] = PurchaseDetails;
+        ViewData["PurchaseDetails"] = purchases;
             ViewData["sessionId"] = SessionId;
             return View();
         }
