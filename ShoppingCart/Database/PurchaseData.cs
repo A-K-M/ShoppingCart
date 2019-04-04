@@ -38,6 +38,5 @@ namespace ShoppingCart.Database
             }
             return Purchase;
         }
-
     }
-    }
+}
