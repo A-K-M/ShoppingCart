@@ -52,13 +52,15 @@
         <div class="row">
             <div class="column">
                 <table width="300" border="1" cellspacing="0" cellpadding="50" align="right">
-                    <td>
-                        <center>
-                            <p><img class="border" width="200" height="200" src=@item.Product.ImagePath /></p>
-                            <p><b> @item.Product.ProductName </b></p>
-                            <p>@item.Product.ProductDescription </p>
-                        </center>
-                    </td>
+                    <tr>
+                        <td>
+                            <center>
+                                <p><img class="border" width="200" height="200" src=@item.Product.ImagePath /></p>
+                                <p><b> @item.Product.ProductName </b></p>
+                                <p>@item.Product.ProductDescription </p>
+                            </center>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="column">
@@ -66,6 +68,8 @@
                 <p> Product ID: @item.ProductId</p>
                 <p>Purchase ID : @item.PurchaseId</p>
                 <p>Activation Code: @item.ActivationCode</p>
+                <p>Quantity: @item.Quantity</p>
+
             </div>
         </div>
     }
