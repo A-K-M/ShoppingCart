@@ -23,11 +23,13 @@ namespace ShoppingCart.Controllers
             {
                 cartitem.Product = CartData.GetProductByProductId(cartitem.ProductId);
             }
+            int cartQuantity = CartData.GetCartQuantity(sessionId);
 
             ViewData["customer"] = customer;
             ViewData["SessionId"] = sessionId;
             ViewData["cart"] = cart;
             ViewData["products"] = products;
+            ViewData["cartQuantity"] = cartQuantity;
             return View();
         }
 

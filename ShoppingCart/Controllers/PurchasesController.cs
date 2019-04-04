@@ -20,9 +20,12 @@ namespace ShoppingCart.Controllers
                 purchase.Product = PurchaseDetailsData.GetProductByProductId(purchase.ProductId);
             }
 
+            int cartQuantity = CartData.GetCartQuantity(SessionId);
+            
             ViewData["PurchaseDetails"] = PurchaseDetails;
             ViewData["sessionId"] = SessionId;
-          
+            ViewData["cartQuantity"] = cartQuantity;
+
             return View();
         }
     }

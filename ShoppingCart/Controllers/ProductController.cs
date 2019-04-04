@@ -20,18 +20,20 @@ namespace ShoppingCart.Controllers
 
             List<Product> products = pd.GetAllProducts();
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
-            List<CartDetail> cart = CartData.GetCart(sessionId);
+            //List<CartDetail> cart = CartData.GetCart(sessionId);
 
-            int quantity = 0;
-            foreach (var cartItem in cart)
-            {
-                quantity += cartItem.Quantity;
-                
-            }
+            //int quantity = 0;
+            //foreach (var cartItem in cart)
+            //{
+            //    quantity += cartItem.Quantity;
+
+            //}
+            int cartQuantity = CartData.GetCartQuantity(sessionId);
+
             ViewData["products"] = products;
             ViewData["customer"] = customer;
             ViewData["sessionId"] = sessionId;
-            ViewData["cartQuantity"] = quantity;
+            ViewData["cartQuantity"] = cartQuantity;
             return View(products);
         }
     }

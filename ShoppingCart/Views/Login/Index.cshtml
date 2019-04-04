@@ -4,10 +4,11 @@
     ViewBag.Title = "Login Page";
 }
 
-<p></p>
+<div style="line-height:20px">&nbsp;</div>
 
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
 {
+    //@Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <table align="center">
         <tr>
             <td>@Html.LabelFor(mod => mod.Username)</td>

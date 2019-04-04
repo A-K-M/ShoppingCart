@@ -12,8 +12,8 @@ namespace ShoppingCart.Controllers
     {
         public ActionResult Index(string Username, string Password)
         {
-            if (Session[Username] != null)
-                return RedirectToAction("Gallery", "Product", Session[Username]);
+            //if (Session[Username] != null)
+            //    return RedirectToAction("Gallery", "Product", Session[Username]);
 
             if (Username == null)
                 return View();
@@ -28,7 +28,8 @@ namespace ShoppingCart.Controllers
             Session[sessionId] = Username;
             Session[Username] = sessionId;
 
-
+            ViewData["cartQuantity"] = 0;
+            ViewData["customer"] = customer;
             return RedirectToAction("Gallery", "Product", new { sessionId });
         }
     }
