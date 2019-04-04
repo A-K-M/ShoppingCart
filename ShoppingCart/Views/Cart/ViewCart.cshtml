@@ -48,6 +48,14 @@
 {
     foreach (var cartitem in cart)
     {
+<<<<<<< HEAD
+                <tr><td> Price: @cartitem.Product.UnitPrice </td></tr>
+                <tr>
+
+                    <td> Quantity: <input type="number" name="Quantity" min="0"> </td>
+                </tr>
+         
+
         foreach (var prod in Product)
         {
           //  if (cartitem.ProductId == prod.ProductId)
@@ -72,7 +80,7 @@
                 <p> Price: $@prod.UnitPrice</p>
                 <p> Quantity: <input type="number" value=@cartitem.Quantity name="Quantity" min="0"></p>
 
-          //  }
+            }
         }
     }
 }
