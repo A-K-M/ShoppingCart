@@ -14,27 +14,59 @@
         <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
     </tr>
 </table>
-<div style="line-height:20px">&nbsp;</div>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 50%;
+        padding: 15px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
 
-<table align="center" border="1">
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    table {
+        border-spacing: 50px; /*use to work like cellspacing */
+        width: 300px;
+        height: 300px;
+    }
+
+    th, td {
+        padding: 0px;
+    }
+    /*use to work like cellpadding */
+</style>
+
+
     @foreach (var item in purchaseDetails)
     {
-        <tr>
-            <td>
-                <table align="center" border="1" width="100%">
-                    <tr align="center"><td><img class="border" width="200" height="200" src=@item.Product.ImagePath /></td></tr>
-                    <tr><td>@item.PurchaseId</td></tr>
-                    <tr><td>@item.ProductId</td></tr>
-                    <tr><td>@item.ActivationCode</td></tr>
-                    <tr><td>@item.Purchase.OrderDate</td></tr>
+      
+        <div class="row">
+            <div class="column">
+                <table width="300" border="1" cellspacing="0" cellpadding="50" align="right">
+                    <td>
+                        <center>
+                            <p><img class="border" width="200" height="200" src=@item.Product.ImagePath /></p>
+                            <p><b> @item.Product.ProductName </b></p>
+                            <p>@item.Product.ProductDescription </p>
+                        </center>
+                    </td>
                 </table>
-            </td>
-        </tr>
+            </div>
+            <div class="column">
+                <p> Purchased On: @item.Purchase.OrderDate</p>
+                <p> Product ID: @item.ProductId</p>
+                <p>Purchase ID : @item.PurchaseId</p>
+                <p>Activation Code: @item.ActivationCode</p>
+            </div>
+        </div>
     }
-</table>
     
-<style>
-    td, tr, th {
-        padding: 2px;
-    }
-</style>
