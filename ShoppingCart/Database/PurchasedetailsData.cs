@@ -38,6 +38,58 @@ namespace ShoppingCart.Database
             return PurchaseDetails;
         }
 
+        public static Purchase GetPurchaseByPurchaseId(int PurchaseId)
+        {
+            Purchase purchase = new Purchase();
+            using (SqlConnection conn = new SqlConnection(Data.connectionString))
+            {
+                conn.Open();
+
+                string sql = @"SELECT OrderDate, CustomerId, PurchaseId FROM Purchases
+                             WHERE PurchaseId = " + PurchaseId;
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    purchase = new Purchase()
+                    {
+                        PurchaseId = (int)reader["PurchaseId"],
+                        CustomerId = (int)reader["CustomerId"],
+                        OrderDate = (DateTime)reader["OrderDate"]
+                    };
+                }
+            }
+            return purchase;
+        }
+
+        public static Product GetProductByProductId(int ProductId)
+        {
+            Product product = new Product();
+            using (SqlConnection conn = new SqlConnection(Data.connectionString))
+            {
+                conn.Open();
+
+                string sql = @"SELECT ProductId, ProductName, ProductDescription, UnitPrice, Image
+                            FROM Products WHERE ProductId =" + ProductId;
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    product = new Product()
+                    {
+                        ProductId = (int)reader["ProductId"],
+                        ProductName = (string)reader["ProductName"],
+                        ProductDescription = (string)reader["ProductDescription"],
+                        UnitPrice = (decimal)reader["UnitPrice"],
+                        ImagePath = (string)reader["Image"]
+                    };
+                }
+            }
+            return product;
+        }
+
+
         public static void GenerateActivationCode()
         {
 
