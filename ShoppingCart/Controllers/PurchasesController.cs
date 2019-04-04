@@ -16,6 +16,7 @@ namespace ShoppingCart.Controllers
             int currentCustomer = 0;
             List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(SessionId);
             List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
+            int cartQuantity = CartData.GetCartQuantity(SessionId);
 
             foreach (var purchase in PurchaseDetails)
             {
@@ -31,7 +32,8 @@ namespace ShoppingCart.Controllers
 
             ViewData["PurchaseDetails"] = PurchaseDetails;
             ViewData["sessionId"] = SessionId;
-          
+            ViewData["cartQuantity"] = cartQuantity;
+
             return View();
         }
     }

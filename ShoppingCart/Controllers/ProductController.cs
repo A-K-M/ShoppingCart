@@ -20,14 +20,6 @@ namespace ShoppingCart.Controllers
 
             List<Product> products = pd.GetAllProducts();
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
-            //List<CartDetail> cart = CartData.GetCart(sessionId);
-
-            //int quantity = 0;
-            //foreach (var cartItem in cart)
-            //{
-            //    quantity += cartItem.Quantity;
-
-            //}
             int cartQuantity = CartData.GetCartQuantity(sessionId);
 
             ViewData["products"] = products;
@@ -40,36 +32,24 @@ namespace ShoppingCart.Controllers
         {
             List<Product> products = pd.GetSearchProducts(searchObj);
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
-            List<CartDetail> cart = CartData.GetCart(sessionId);
+            int cartQuantity = CartData.GetCartQuantity(sessionId);
 
-            int quantity = 0;
-            foreach (var cartItem in cart)
-            {
-                quantity += cartItem.Quantity;
-                
-            }
             ViewData["products"] = products;
             ViewData["customer"] = customer;
             ViewData["sessionId"] = sessionId;
-            ViewData["cartQuantity"] = quantity;
+            ViewData["cartQuantity"] = cartQuantity;
             return View(products);
         }
 
         public PartialViewResult GetSearchData(string searchObj, string sessionId)
         {
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
-            List<CartDetail> cart = CartData.GetCart(sessionId);
             List<Product> products = pd.GetSearchProducts(searchObj);
+            int cartQuantity = CartData.GetCartQuantity(sessionId);
 
-            int quantity = 0;
-            foreach (var cartItem in cart)
-            {
-                quantity += cartItem.Quantity;
-
-            }
             ViewData["customer"] = customer;
             ViewData["sessionId"] = sessionId;
-            ViewData["cartQuantity"] = quantity;
+            ViewData["cartQuantity"] = cartQuantity;
             return PartialView(products);
         }
     }

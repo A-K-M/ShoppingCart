@@ -17,7 +17,7 @@ namespace ShoppingCart.Database
             {
                 conn.Open();
 
-                string sql = @"SELECT ProductId, ProductName, ProductDescription, UnitPrice, ImagePath
+                string sql = @"SELECT ProductId, ProductName, ProductDescription, UnitPrice, Image
                             from Products order by ProductId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
@@ -62,7 +62,7 @@ namespace ShoppingCart.Database
                             ProductName = (string)reader["ProductName"],
                             ProductDescription = (string)reader["ProductDescription"],
                             UnitPrice = (decimal)reader["UnitPrice"],
-                            ImagePath = (string)reader["ImagePath"]
+                            ImagePath = (string)reader["Image"]
                         });
                     }
                 }
