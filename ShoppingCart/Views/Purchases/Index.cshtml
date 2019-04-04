@@ -5,10 +5,9 @@
     ViewBag.Title = "My Purchases";
 }
 @{
-    List<PurchaseDetails> PP = (List<PurchaseDetails>)ViewData["PurchaseDetails"];
+    List<PurchaseDetails> purchaseDetails = (List<PurchaseDetails>)ViewData["PurchaseDetails"];
     var sessionId = ViewData["sessionId"];
-    List<Product> Prod = (List<Product>)ViewData["products"];
-    List<Purchase> P = (List<Purchase>)ViewData["Purchase"];
+
 }
 <table>
     <tr>
@@ -18,16 +17,16 @@
 <div style="line-height:20px">&nbsp;</div>
 
 <table align="center" border="1">
-    @foreach (var PurchaseDetails in PP)
+    @foreach (var item in purchaseDetails)
     {
         <tr>
             <td>
                 <table align="center" border="1" width="100%">
-                    <tr align="center"><td><img class="border" width="200" height="200" src=@PurchaseDetails.Product.ImagePath /></td></tr>
-                    <tr><td>@PurchaseDetails.PurchaseId</td></tr>
-                    <tr><td>@PurchaseDetails.ProductId</td></tr>
-                    <tr><td>@PurchaseDetails.ActivationCode</td></tr>
-                    <tr><td>@PurchaseDetails.Purchase.OrderDate</td></tr>
+                    <tr align="center"><td><img class="border" width="200" height="200" src=@item.Product.ImagePath /></td></tr>
+                    <tr><td>@item.PurchaseId</td></tr>
+                    <tr><td>@item.ProductId</td></tr>
+                    <tr><td>@item.ActivationCode</td></tr>
+                    <tr><td>@item.Purchase.OrderDate</td></tr>
                 </table>
             </td>
         </tr>
