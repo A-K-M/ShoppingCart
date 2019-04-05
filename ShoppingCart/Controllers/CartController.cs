@@ -42,10 +42,21 @@ namespace ShoppingCart.Controllers
             return RedirectToAction("Gallery", "Product", new { sessionId = @sessionId });
         }
 
-        public int AddToCartAjax(int productId, int customerId)
+        //public int AddToCartAjax(int productId, int customerId)
+        //{
+        //    CartData.AddToCart(productId, customerId);
+        //    return CartData.GetCartQuantity(customerId);
+        //}
+        
+        public ActionResult CheckOut(int CustomerId)
         {
-            CartData.AddToCart(productId, customerId);
-            return CartData.GetCartQuantity(customerId);
+            //insert into Purhcase 
+
+
+            //delete form Cart
+            string session = CustomerData.GetSessionId(CustomerId);
+            CartData.ClearCart(CustomerId);
+            return RedirectToAction("Gallery", "Product", new { sessionId = session });
         }
     }
 }

@@ -21,6 +21,7 @@
     @*<p>Total: @TotalCost</p>*@
 </h2>
 
+
 <style>
     * {
         box-sizing: border-box;
@@ -67,9 +68,9 @@
                 </td>
                 <td>
                     <p> Price: $@cartitem.Product.UnitPrice</p>
-                    Quantity: <input type="number" value=@cartitem.Quantity id="@cartitem.Product.ProductId" min="0"
+                    Quantity: <input inputmode="numeric" type="number" value=@cartitem.Quantity id="@cartitem.Product.ProductId" min="0"
                                      onchange="updatePrice(this, @cartitem.Product.UnitPrice)"
-                                     oninput="if (this.value == 0) remove_row(this);">
+                                     oninput="if (this.value === 0) remove_row(this);">
                 </td>
             </tr>
         }
