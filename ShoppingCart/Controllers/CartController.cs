@@ -25,7 +25,7 @@ namespace ShoppingCart.Controllers
             }
             int cartQuantity = CartData.GetCartQuantity(customer.CustomerId);
 
-            ViewData["customer"] = customer;
+            //ViewData["customer"] = customer;
             ViewData["SessionId"] = sessionId;
             ViewData["cart"] = cart;
             ViewData["products"] = products;
@@ -33,9 +33,11 @@ namespace ShoppingCart.Controllers
             return View();
         }
 
-        public ActionResult AddToCart(int ProductId, int CustomerId, string sessionId)
+        public ActionResult AddToCart(int ProductId, int CustomerId)
         {
             CartData.AddToCart(ProductId, CustomerId);
+            Customer customer = CustomerData.GetCustomerByCustomerId(CustomerId);
+            string sessionId = customer.SessionId;
             return RedirectToAction("Gallery", "Product", new { sessionId = @sessionId });
         }
 

@@ -6,6 +6,7 @@
     var customer = (Customer)ViewData["customer"];
     var sessionId = (string)ViewData["sessionId"];
     var cartQuantity = (int)ViewData["cartQuantity"];
+    var x = 0;
 }
 
 <div id="productList">
@@ -19,28 +20,21 @@
                 <tr><td><center>@product.ProductDescription</center></td></tr>
                 <tr>
                     <td>
-                        $@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
-                        new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
                         <center>
                             @Html.ActionLink( "$" + @product.UnitPrice + "- Add to Cart" , "AddToCart", "Cart",
-                            new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, new { @class = "btn btn-success btn-large" })
+                            new { productId = product.ProductId, customerId = customer.CustomerId}, new { @class = "btn btn-success btn-large" })
                         </center>
                         <input type="button" name="AddToCart" value="Add To Cart" onclick="AddCart(@customer.CustomerId,@product.ProductId)" />
                     </td>
                 </tr>
-            </table>
+            </table><span style="line-height:20px">&nbsp;</span>
         </div>
     }
 </div>
 
 <style>
     td, tr, th {
-        padding: 2px;
+        padding: 5px;
     }
 </style>
 

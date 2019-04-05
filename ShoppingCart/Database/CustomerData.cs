@@ -64,18 +64,17 @@ namespace ShoppingCart.Database
             return customer;
         }
 
-        public static string GetSessionId(int CustomerID)
+        public static Customer GetCustomerByCustomerId(int customerId)
         {
             Customer customer = null;
-            string SessionId = "";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                string q = @"SELECT SessionId
+                string q = @"SELECT CustomerID, FirstName, LastName, sessionID 
                             FROM Customers
-                            WHERE CustomerID = '" + CustomerID + "'";
+                            WHERE CustomerId = '" + customerId + "'";
 
                 SqlCommand cmd = new SqlCommand(q, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -83,11 +82,14 @@ namespace ShoppingCart.Database
                 {
                     customer = new Customer()
                     {
-                        SessionId = (string)reader["SessionId"]
+                        CustomerId = (int)reader["CustomerId"],
+                        FirstName = (string)reader["FirstName"],
+                        LastName = (string)reader["LastName"],
+                        SessionId =  (string)reader["sessionID"]
                     };
                 }
             }
-            return SessionId;
+            return customer;
         }
     }
 }
