@@ -7,36 +7,37 @@
     var sessionId = ViewData["sessionId"];
     var cartQuantity = ViewData["cartQuantity"];
 }
+
 <table align="center" border="1">
-    @foreach (var products in Model)
-    {
-        <tr>
-            <td>
-                <table align="center" border="1" width="80%">
-                    <tr align="center">
-                        <td>
-                            <img class="border" width="200" height="200" src=@Html.DisplayFor(modelItem => products.ImagePath) />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => products.ProductName)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => products.ProductDescription)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => products.UnitPrice) - 
-                            @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
-                               new { productId = products.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    }
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <table align="center" border="1" width="80%">
+                        <tr align="center">
+                            <td>
+                                <img class="border" width="200" height="200" src=@Html.DisplayFor(modelItem => item.ImagePath) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductDescription)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UnitPrice) -
+                                @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
+                                   new { productId = item.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        }
+    </table>

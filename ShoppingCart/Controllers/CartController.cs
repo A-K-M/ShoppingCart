@@ -16,14 +16,14 @@ namespace ShoppingCart.Controllers
         {
             // get cust id to match cust id w cart id
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
-            List<CartDetail> cart = CartData.GetCart(sessionId);
+            List<CartDetail> cart = CartData.GetCart(customer.CustomerId);
             ProductData pd = new ProductData();
             List<Product> products = pd.GetAllProducts();
             foreach (var cartitem in cart)
             {
                 cartitem.Product = CartData.GetProductByProductId(cartitem.ProductId);
             }
-            int cartQuantity = CartData.GetCartQuantity(sessionId);
+            int cartQuantity = CartData.GetCartQuantity(customer.CustomerId);
 
             ViewData["customer"] = customer;
             ViewData["SessionId"] = sessionId;
@@ -35,7 +35,7 @@ namespace ShoppingCart.Controllers
 
         public ActionResult AddToCart(int ProductId, int CustomerId, string sessionId)
         {
-            CartData.AddToCart(ProductId, CustomerId, sessionId);
+            CartData.AddToCart(ProductId, CustomerId);
             return RedirectToAction("Gallery", "Product", new { sessionId = @sessionId });
         }
 
