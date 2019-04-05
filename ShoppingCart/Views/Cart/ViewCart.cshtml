@@ -3,6 +3,7 @@
 @{ var cart_list = (List<CartDetail>)ViewData["cart"];
     var SessionId = ViewData["SessionId"];
     var Product = (List<Product>)ViewData["Product"];
+    var cid = (Int32)ViewData["cid"];
     //decimal TotalCost = 0;
     //foreach (var cartitem in cart_list)
     //{
@@ -13,15 +14,6 @@
 @{
     ViewBag.Title = "ViewCart";
 }
-<h2>
-    View Cart &nbsp; &nbsp;
-    @Html.ActionLink("Continue Shopping", "Gallery", "Product", new { sessionId = @SessionId }, null) &nbsp;|
-    @Html.ActionLink("Checkout", "Action Method2", "Purchases") &nbsp;  &nbsp; &nbsp; &nbsp;
-    <p>Total: <span id="total"></span></p>
-    @*<p>Total: @TotalCost</p>*@
-</h2>
-
-
 <style>
     * {
         box-sizing: border-box;
@@ -53,8 +45,15 @@
     /*use to work like cellpadding */
 </style>
 
-@using (Html.BeginForm("Index", "Purchases", FormMethod.Post))
+@using (Html.BeginForm(FormMethod.Post))
 {
+<h2>
+    View Cart &nbsp; &nbsp;
+    <input type="button" name="Continue" value="Continue Shopping" class="btn-link" onclick="continue_shopping()" />
+    &nbsp;|
+    <input type="submit" name="CheckOut" value="Checkout" class="btn-link" formaction="/Cart/CheckOut?CustomerId=@cid" />
+    <p>Total: <span id="total"></span></p>
+</h2>
     <table class="table" id="cart_table">
         @foreach (var cartitem in cart_list)
         {
@@ -68,9 +67,10 @@
                 </td>
                 <td>
                     <p> Price: $@cartitem.Product.UnitPrice</p>
-                    Quantity: <input inputmode="numeric" type="number" value=@cartitem.Quantity id="@cartitem.Product.ProductId" min="0"
+                    Quantity: <input type="number" value=@cartitem.Quantity 
+                                     name="@cartitem.Product.ProductId" 
                                      onchange="updatePrice(this, @cartitem.Product.UnitPrice)"
-                                     oninput="if (this.value === 0) remove_row(this);">
+                                     oninput="if (this.value == '0') remove_row(this);">
                 </td>
             </tr>
         }
@@ -120,16 +120,33 @@
 
                 setTotalValue();
             }
-        function remove_row(r) {
+    function remove_row(r) {
             var i = r.parentNode.parentNode.rowIndex;
             document.getElementById("cart_table").deleteRow(i);
+    }
+    function checkout() {
+
+        
+    //method = "post";
+    //path = "CheckOut";
+    //var form = document.createElement("form");
+    //form.setAttribute("method", method);
+    //form.setAttribute("action", path);
+
+
+    //var inputs = document.getElementsByClassName('cart_item_value');
+    //for (var i in inputs) {
+    //    var hiddenField = document.createElement("input");
+    //    hiddenField.setAttribute("type", "hidden");
+    //    hiddenField.setAttribute("name", i.id);
+    //    hiddenField.setAttribute("value", i.value);
+    //    //hiddenField.setAttribute("class", cID);
+    //    form.appendChild(hiddenField);
+
+    //}
+    //    document.body.appendChild(form);
+    //    form.submit();
 
     }
-
-    function update_cart() {
-
-    }
-
-
 
 </script>
