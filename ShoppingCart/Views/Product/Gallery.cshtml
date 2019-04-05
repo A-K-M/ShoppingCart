@@ -30,9 +30,9 @@
         </tr>
     </table>*@
 
-<style type="text/css">
-    tr {
-        padding: 50px;
+<style>
+    td {
+        padding: 0px;
     }
 </style>
 
@@ -56,13 +56,7 @@
                 <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
                 <tr><td><center><b>@product.ProductName</b></center></td></tr>
                 <tr><td><center>@product.ProductDescription</center></td></tr>
-                <tr>
-                    <td>
-                        $@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
-new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
-                    </td>
-                </tr>
-
+                
                 <tr>
                     <td>
                         <center>
