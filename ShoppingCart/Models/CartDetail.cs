@@ -11,7 +11,6 @@ namespace ShoppingCart.Models
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public string LastUpdateDate { get; set; }
-
         public Product Product { get; set; }
     }
 }

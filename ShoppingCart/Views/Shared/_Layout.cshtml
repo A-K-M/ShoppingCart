@@ -36,39 +36,32 @@
             <div class="navbar-collapse collapse">
                 @if (sessionId != null)
                 {
-                <ul class="nav navbar-nav">
-                    @{ 
-
-                        if (customer != null)
-                        {
-                            var name = customer.FirstName + " " + customer.LastName;
-
-
-                    <li><a style="color:white">Hello, @name</a></li>}
-                        }
-                    <li>@Html.ActionLink("View Products", "Gallery", "Product", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
-                    <li>@Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
-                    <li>@Html.ActionLink("Log Out", "Index", "Logout", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
-                </ul>
+                    <ul class="nav navbar-nav">
+                        @{ 
+                            if (customer != null)
+                            {
+                                var name = customer.FirstName + " " + customer.LastName;
+                                <li><a style="color:white">Hello, @name</a></li>
+                            }
+                            }
+                        <li>@Html.ActionLink("View Products", "Gallery", "Product", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("Log Out", "Index", "Logout", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
+                    </ul>
                 }
 
-                    <div class="nav navbar-nav navbar-right">
-                        @if (sessionId != null)
-                        {
-                            {
-                                
-                            }
-                            <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })'>
-                                <img class="border" width="50" height="50" align="bottom" src='@Url.Content("~/Content/Images/cartIcon.png")' />
-                            </a>
-                            <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })' style="color:powderblue">
-                                @cartQuantity Item(s)
-                            </a>
-                        }
-                    </div>
-                        
+                <div class="nav navbar-nav navbar-right">
+                    @if (sessionId != null)
+                    {
+                        <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })'>
+                            <img class="border" width="50" height="50" align="bottom" src='@Url.Content("~/Content/Images/cartIcon.png")' />
+                        </a>
+                        <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })' style="color:powderblue">
+                            @cartQuantity Item(s)
+                        </a>
+                    }
+                </div>                       
             </div>
-
         </div>
     </div>
     <div class="container body-content">

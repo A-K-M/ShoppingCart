@@ -9,37 +9,6 @@
     var sessionId = ViewData["sessionId"];
 
 }
-<style>
-    * {
-        box-sizing: border-box;
-    }
-    /* Create two equal columns that floats next to each other */
-    .column {
-        float: left;
-        width: 50%;
-        padding: 15px;
-        height: 300px; /* Should be removed. Only for demonstration */
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    table {
-        border-spacing: 50px; /*use to work like cellspacing */
-        width: 300px;
-        height: 300px;
-    }
-
-    th, td {
-        padding: 0px;
-    }
-    /*use to work like cellpadding */
-</style>
-
 
 @foreach (var item in purchases)
 {
@@ -64,20 +33,51 @@
                 <p> Product ID: @pd.ProductId</p>
                 <p>Purchase ID : @item.PurchaseId</p>
                 <p>Activation Code: 
-                    @if (pd.ActCodes.Count() == 1)
+                    @if (pd.ActivationCodes.Count() == 1)
                     {
-                        var code = pd.ActCodes.ElementAt(0).ToString();
+                        var code = pd.ActivationCodes.ElementAt(0).ToString();
                         @Html.TextBoxFor(abc => code);
                     }
                     else
                     {
-                        @Html.DropDownListFor(pdd => pd.ActCodes, pd.ActCodes.Select(s => new SelectListItem { Text = s, Value = s }))
+                        @Html.DropDownListFor(pdd => pd.ActivationCodes, pd.ActivationCodes.Select(s => new SelectListItem { Text = s, Value = s }))
                     }
                 </p>
-                <p>Quantity: @pd.ActCodes.Count()</p>
+                <p>Quantity: @pd.ActivationCodes.Count()</p>
 
             </div>
         </div>
     }
 }
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            /* Create two equal columns that floats next to each other */
+            .column {
+                float: left;
+                width: 50%;
+                padding: 15px;
+                height: 300px; /* Should be removed. Only for demonstration */
+            }
+
+            /* Clear floats after the columns */
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            table {
+                border-spacing: 50px; /*use to work like cellspacing */
+                width: 300px;
+                height: 300px;
+            }
+
+            th, td {
+                padding: 0px;
+            }
+            /*use to work like cellpadding */
+        </style>
 

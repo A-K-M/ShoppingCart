@@ -3,12 +3,6 @@
 @{ var cart = (List<CartDetail>)ViewData["cart"];
     var SessionId = ViewData["SessionId"];
     var Product = (List<Product>)ViewData["Product"];
-    decimal TotalCost = 0;
-    foreach (var cartitem in cart)
-    {
-        decimal price = cartitem.Quantity * cartitem.Product.UnitPrice;
-        TotalCost = TotalCost + price;
-    }
 }
 @{
     ViewBag.Title = "ViewCart";
@@ -17,21 +11,22 @@
     View Cart &nbsp; &nbsp;
     @Html.ActionLink("Continue Shopping", "Gallery", "Product", new { sessionId = @SessionId }, null) &nbsp;|
     @Html.ActionLink("Checkout", "Action Method2", "Purchases") &nbsp;  &nbsp; &nbsp; &nbsp;
-    Total:$ @TotalCost
+    <p>Total: <span id="total"></span></p>
 </h2>
 
 <style>
     * {
         box-sizing: border-box;
     }
-
+    /* Create two equal columns that floats next to each other */
     .column {
         float: left;
         width: 50%;
-        padding: 15px;  /*space between columns*/
-        /*height: 300px; */ 
+        padding: 15px;
+        height: 300px; /* Should be removed. Only for demonstration */
     }
 
+    /* Clear floats after the columns */
     .row:after {
         content: "";
         display: table;
@@ -39,46 +34,90 @@
     }
 
     table {
-        border-spacing: 150px; 
+        border-spacing: 50px; /*use to work like cellspacing */
         width: 300px;
         height: 300px;
-        border: 0px solid black;
     }
 
-    td {
+    th, td {
         padding: 0px;
     }
-
+    /*use to work like cellpadding */
 </style>
 
 @using (Html.BeginForm("Index", "Purchases", FormMethod.Post))
 {
-    foreach (var cartitem in cart)
-    {
-            <div class="row">
-                <div class="column">
-
-                    <table align="right" border="1" width="80%">
-                        <tr align="center"><td><img class="border" width="200" height="200" src=@cartitem.Product.ImagePath /></td></tr>
-                        <tr><td><center><b>@cartitem.Product.ProductName</b></center></td></tr>
-                        <tr><td><center>@cartitem.Product.ProductDescription</center></td></tr></table>
-
-                        @*<table width="300" border="1" cellspacing="0" cellpadding="50" align="right">
-                <tr><td align="center"><img class="border" width="200" height="200" src=@cartitem.Product.ImagePath /></td></tr>
-                <tr><td align="center"><b> @cartitem.Product.ProductName </b></td></tr>
-                <tr><td align="center">@cartitem.Product.ProductDescription </td></tr>
-
-
-            </table>*@
-                </div>
-                <div class="column">
-                    <br/><br/><br/><br/><br/>
+    <table class="table" id="cart_table">
+        @foreach (var cartitem in cart)
+        {
+            <tr>
+                <td>
+                    <center>
+                        <p><img class="border" width="200" height="200" src=@cartitem.Product.ImagePath /></p>
+                        <p><b> @cartitem.Product.ProductName </b></p>
+                        <p>@cartitem.Product.ProductDescription </p>
+                    </center>
+                </td>
+                <td>
                     <p> Price: $@cartitem.Product.UnitPrice</p>
-                    <p> Quantity: <input type="number" value=@cartitem.Quantity name="Quantity" min="0"></p>
+                    Quantity: <input type="number" value=@cartitem.Quantity id="@cartitem.Product.ProductId" min="0"
+                                     onchange="updatePrice(this, @cartitem.Product.UnitPrice)"
+                                     oninput="if (this.value == 0) remove_row(this);">
+                </td>
+            </tr>
+        }
+    </table>
 
-                </div>
-            </div>
+}
+<script>
+            var data = [];
+            var total = 0;
+
+            window.onload = function () {
+                @{
+                    foreach (var item in cart)
+                    {
+                        <text>
+                        data.push
+                            ({
+                                    productId: '@item.Product.ProductId',
+                                    quantity: '@item.Quantity',
+                                    price: '@item.Product.UnitPrice'
+                            })
+                        </text>
+                    }
+                }
+
+
+                setTotalValue();
             }
+
+            function setTotalValue() {
+                total = 0;
+                data.forEach(item => total += (item.quantity * item.price));
+                document.getElementById('total').innerText = total;
             }
 
+            function updatePrice(sender, price) {
+                let updatedCartItem = data.find(cartItem => cartItem.productId === sender.id);
+                var index = data.indexOf(updatedCartItem);
+                data.splice(index, 1);
 
+                updatedCartItem.quantity = sender.value;
+                data.push(updatedCartItem);
+
+                if (sender.value === 0) {
+                    deleteRow(sender);
+                }
+
+                setTotalValue();
+            }
+        function remove_row(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("cart_table").deleteRow(i);
+
+    }
+
+
+
+</script>
