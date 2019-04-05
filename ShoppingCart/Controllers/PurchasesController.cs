@@ -15,7 +15,7 @@ namespace ShoppingCart.Controllers
         {
             Customer C = CustomerData.GetCustomerBySessionId(SessionId);
             List<Purchase> PurchaseDetails = PurchaseData.GetPurchaseDetailsByCustomerId(C.CustomerId);
-            int cartQuantity = CartData.GetCartQuantity(SessionId);
+            int cartQuantity = CartData.GetCartQuantity(C.CustomerId);
 
             ViewData["PurchaseDetails"] = PurchaseDetails;
             ViewData["sessionId"] = SessionId;

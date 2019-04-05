@@ -4,35 +4,19 @@
     ViewBag.Title = "Libraries Gallery";
 }
 
-@{
+@*@{
     var products = (List<Product>)ViewData["products"];
     var customer = (Customer)ViewData["customer"];
     var name = customer.FirstName + " " + customer.LastName;
     var sessionId = (string)ViewData["sessionId"];
     var cartQuantity = (int)ViewData["cartQuantity"];
-}
+}*@
 
-@*<table>
-        <tr>
-            <th>Hello, @name </th>
-            <td>@Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = @sessionId }, null)</td>
-            <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
-            <td>
-                <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })'>
-                    <img class="border" width="50" height="50" src='@Url.Content("~/Content/Images/cartIcon.png")' />
-                </a>
-            </td>
-            <td>
-                <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })'>
-                    @cartQuantity
-                </a>
-            </td>
-        </tr>
-    </table>*@
+<div style="line-height:40px">&nbsp;</div>
 
-<style>
-    td {
-        padding: 0px;
+<style type="text/css">
+    tr {
+        padding: 50px;
     }
 </style>
 
@@ -44,41 +28,42 @@
 
 <div style="line-height:20px">&nbsp;</div>
 
-<div id="productList">
+@Html.Partial("_ProductList")
+@*<div id="productList">
+        @foreach (var product in products)
+        {
 
+            <div class="col-sm-4">
 
-    @foreach (var product in products)
-    {
+                <table align="center" border="1" width="80%">
+                    <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
+                    <tr><td><center><b>@product.ProductName</b></center></td></tr>
+                    <tr><td><center>@product.ProductDescription</center></td></tr>
+                    <tr>
+                        <td>
+                            $@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
+                            new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
+                        </td>
+                    </tr>
 
-        <div class="col-sm-4">
+                    <tr>
+                        <td>
+                            <center>
+                                @Html.ActionLink( "$" + @product.UnitPrice + "- Add to Cart" , "AddToCart", "Cart",
+                                new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, new { @class = "btn btn-success btn-large" })
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
 
-            <table align="center" border="1" width="80%">
-                <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
-                <tr><td><center><b>@product.ProductName</b></center></td></tr>
-                <tr><td><center>@product.ProductDescription</center></td></tr>
-                
-                <tr>
-                    <td>
-                        <center>
-                            @Html.ActionLink( "$" + @product.UnitPrice + "- Add to Cart" , "AddToCart", "Cart",
-new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, new { @class = "btn btn-success btn-large" })
-                        </center>
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-
-
-    }
-
-</div>
-
-<style>
-    td, tr, th {
-        padding: 2px;
-    }
-</style>
+    <style>
+        td, tr, th {
+            padding: 2px;
+        }
+    </style>*@
 
 <script>
     var session = '@(ViewData["sessionId"])';

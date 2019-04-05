@@ -7,7 +7,7 @@
 @{
     List<Purchase> purchases = (List<Purchase>)ViewData["PurchaseDetails"];
     var sessionId = ViewData["sessionId"];
-
+   // var Purchasedate = ViewData[DateTime.Now.]
 }
 
 @foreach (var item in purchases)
@@ -17,36 +17,37 @@
         <div class="row">
             <div class="column">
                 <table width="300" border="1" cellspacing="0" cellpadding="50" align="right">
-                    <tr>
+                    <tr style="padding-bottom:25px">
+
                         <td>
                             <center>
                                 <p><img class="border" width="200" height="200" src=@pd.Product.ImagePath /></p>
                                 <p><b> @pd.Product.ProductName </b></p>
                                 <p>@pd.Product.ProductDescription </p>
+                                <input type="button"  value="Download" />
                             </center>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="column">
-                <p> Purchased On: @item.OrderDate</p>
-                <p> Product ID: @pd.ProductId</p>
-                <p>Purchase ID : @item.PurchaseId</p>
+                <p> Purchased On: @item.OrderDate.ToString("dd MMM YYYY")</p>
                 <p>Activation Code: 
                     @if (pd.ActivationCodes.Count() == 1)
                     {
                         var code = pd.ActivationCodes.ElementAt(0).ToString();
-                        @Html.TextBoxFor(abc => code);
+                    <b>@code</b>;
                     }
                     else
                     {
-                        @Html.DropDownListFor(pdd => pd.ActivationCodes, pd.ActivationCodes.Select(s => new SelectListItem { Text = s, Value = s }))
+                       <b> @Html.DropDownListFor(pdd => pd.ActivationCodes, pd.ActivationCodes.Select(s => new SelectListItem { Text = s, Value = s }))</b>
                     }
                 </p>
                 <p>Quantity: @pd.ActivationCodes.Count()</p>
 
             </div>
         </div>
+        <br />
     }
 }
 
