@@ -30,6 +30,7 @@
                             @Html.ActionLink( "$" + @product.UnitPrice + "- Add to Cart" , "AddToCart", "Cart",
                             new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, new { @class = "btn btn-success btn-large" })
                         </center>
+                        <input type="button" name="AddToCart" value="Add To Cart" onclick="AddCart(@customer.CustomerId,@product.ProductId)" />
                     </td>
                 </tr>
             </table>
@@ -42,3 +43,7 @@
         padding: 2px;
     }
 </style>
+
+<script>
+
+</script>

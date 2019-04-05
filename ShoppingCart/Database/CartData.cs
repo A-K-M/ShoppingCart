@@ -121,7 +121,6 @@ namespace ShoppingCart.Database
                 }
             }
         }
-
         public static int GetCartQuantity(int customerId)
         {
             List<CartDetail> cart = CartData.GetCart(customerId);
@@ -133,5 +132,20 @@ namespace ShoppingCart.Database
             }
             return quantity;
         }
+
+
+        public static void ClearCart(int CustomerId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"Delete from CartDetails where CartId = " + CustomerId;
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+
     }
 }

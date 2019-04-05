@@ -63,5 +63,31 @@ namespace ShoppingCart.Database
             }
             return customer;
         }
+
+        public static string GetSessionId(int CustomerID)
+        {
+            Customer customer = null;
+            string SessionId = "";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string q = @"SELECT SessionId
+                            FROM Customers
+                            WHERE CustomerID = '" + CustomerID + "'";
+
+                SqlCommand cmd = new SqlCommand(q, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    customer = new Customer()
+                    {
+                        SessionId = (string)reader["SessionId"]
+                    };
+                }
+            }
+            return SessionId;
+        }
     }
 }

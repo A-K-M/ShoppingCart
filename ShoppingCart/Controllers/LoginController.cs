@@ -29,14 +29,14 @@ namespace ShoppingCart.Controllers
                 hashPW = MD5Hash.GetMd5Hash(md5Hash, Password);
             }
 
-            if (customer.Password != hashPW)
+            if (customer.Password != hashPW) {
+                TempData["error"] = "<script>alert('Login Failed! Try Again!');</script>";
                 return View();
-
+            }
+                
             string sessionId = SessionData.CreateSession(customer.CustomerId);
-
             Session[sessionId] = Username;
             Session[Username] = sessionId;
-
             ViewData["cartQuantity"] = 0;
             ViewData["customer"] = customer;
             return RedirectToAction("Gallery", "Product", new { sessionId });           
