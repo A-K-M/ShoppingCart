@@ -197,6 +197,7 @@
     <Content Include="Views\Cart\ViewCart.cshtml" />
     <Content Include="Views\Purchases\Index.cshtml" />
     <Content Include="Views\Product\GetSearchData.cshtml" />
+    <Content Include="Views\Product\View1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

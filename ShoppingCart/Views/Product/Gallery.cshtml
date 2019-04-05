@@ -51,7 +51,10 @@
                         <tr><td>@product.ProductDescription</td></tr>
                         <tr>
                             <td>
-                                $@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
+                                $@product.UnitPrice  -
+                                <button id="btnCart" class="btn btn-outline-danger" onclick="addToCart(@product.ProductId)">Add to Cart</button>
+                                
+                                @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
         new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
                             </td>
                         </tr>
@@ -83,9 +86,24 @@
         xhttp.send();
     }
 
+    
+
     function resetSearch() {
         if (searchObj.value == "") {
             search();
         }
+    }
+
+    function addToCart(productId, customerId, sessionId) {
+        console.log('Product ID Clicked is ' + productId);
+        //console.log('the user searches for ' + searchObj.value);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("cartQty").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/Cart/AddToCartAjax?productId=" + productId + "&customerId=" + @customer.CustomerId, true);
+        xhttp.send();
     }
 </script>

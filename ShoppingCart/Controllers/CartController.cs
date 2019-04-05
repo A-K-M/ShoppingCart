@@ -38,5 +38,12 @@ namespace ShoppingCart.Controllers
             CartData.AddToCart(ProductId, CustomerId, sessionId);
             return RedirectToAction("Gallery", "Product", new { sessionId = @sessionId });
         }
+
+        public int AddToCartAjax(int productId, int customerId)
+        {
+            var sessionId = "8df61134-c938-437d-9737-d0a75608d042";
+            CartData.AddToCart(productId, customerId, sessionId);
+            return CartData.GetCartQuantity(sessionId);
+        }
     }
 }

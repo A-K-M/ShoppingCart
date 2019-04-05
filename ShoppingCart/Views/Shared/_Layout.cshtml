@@ -61,7 +61,7 @@
                             <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })'>
                                 <img class="border" width="50" height="50" align="bottom" src='@Url.Content("~/Content/Images/cartIcon.png")' />
                             </a>
-                            <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })' style="color:powderblue">
+                            <a href='@Url.Action("ViewCart", "Cart", new { sessionId = @sessionId })' style="color:powderblue" id="cartQty">
                                 @cartQuantity Item(s)
                             </a>
                         }

@@ -115,7 +115,7 @@ namespace ShoppingCart.Database
                 }
             }
         }
-
+        
         public static int GetCartQuantity(string sessionId)
         {
             List<CartDetail> cart = CartData.GetCart(sessionId);
