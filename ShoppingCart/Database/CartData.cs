@@ -111,11 +111,18 @@ namespace ShoppingCart.Database
                     string sql = @"SELECT Quantity FROM CartDetails 
                                         WHERE CartId = '" + CustomerId + "' AND ProductId = " + ProductId;
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.ExecuteNonQuery();
-                    int quantity = (int)cmd.ExecuteScalar();
-                    sql = @"UPDATE CartDetails SET Quantity = " + (quantity + 1) +
+                   // SqlDataReader reader = cmd.ExecuteReader();
+                    int quantity=0;
+                    if (cmd.ExecuteScalar() == null)
+                    {
+                        quantity = 1;
+                    }
+                    else {
+                        quantity = (int)cmd.ExecuteScalar();
+                    }
+                    string newsql = @"UPDATE CartDetails SET Quantity = " + (quantity + 1) +
                                 " WHERE CartId = '" + CustomerId + "' AND ProductId = " + ProductId;
-                    cmd = new SqlCommand(sql, conn);
+                    cmd = new SqlCommand(newsql, conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }

@@ -92,7 +92,7 @@ namespace ShoppingCart.Database
                         };
                         purchaseDetails.Add(det);
                     }
-                    purchase.PurchaseDetails = purchaseDetails;                    
+                    purchase.PurchaseDetails = purchaseDetails;
                     reader.Close();
 
                     foreach (PurchaseDetails purchaseDetail in purchaseDetails)
@@ -122,6 +122,47 @@ namespace ShoppingCart.Database
                 }
             }
             return purchases;
+        }
+
+
+        public static void CreateNewPurchase(int customerId)
+        {
+            using (SqlConnection conn = new SqlConnection(Data.connectionString))
+            {
+                conn.Open();
+                int p_count = CountPurchases();
+                string sql = @"insert into purchases(PurchaseId, CustomerId, OrderDate) values ("+ (p_count+1 )+ ","+ customerId + ",GetDate())";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
+        public static void InsertNewPurchses(int productId)
+        {
+            using (SqlConnection conn = new SqlConnection(Data.connectionString))
+            {
+                conn.Open();
+                int p_count = CountPurchases();
+                string ac_code = ShopUtil.GenerateActCode();
+                string sql = @"insert into purchasedetails(PurchaseId, ProductId, ActivationCode) values (" + (p_count) + "," + productId + ",'"+ ac_code + "')";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static int CountPurchases()
+        {
+            int count = 0;
+            using (SqlConnection conn = new SqlConnection(Data.connectionString))
+            {
+                conn.Open();
+
+                string sql = @"select count(PurchaseId) from Purchases;";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                count = (int)cmd.ExecuteScalar();
+            }
+            return count;
         }
     }
 }

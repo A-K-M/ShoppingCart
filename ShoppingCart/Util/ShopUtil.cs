@@ -9,7 +9,7 @@ namespace ShoppingCart.Util
 {
     public class ShopUtil
     {
-        private static string GenerateActCode()
+        public static string GenerateActCode()
         {
             return Guid.NewGuid().ToString().Substring(0, 17);
         }
