@@ -41,9 +41,8 @@ namespace ShoppingCart.Controllers
 
         public int AddToCartAjax(int productId, int customerId)
         {
-            var sessionId = "8df61134-c938-437d-9737-d0a75608d042";
-            CartData.AddToCart(productId, customerId, sessionId);
-            return CartData.GetCartQuantity(sessionId);
+            CartData.AddToCart(productId, customerId);
+            return CartData.GetCartQuantity(customerId);
         }
     }
 }
