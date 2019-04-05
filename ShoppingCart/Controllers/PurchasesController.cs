@@ -14,7 +14,7 @@ namespace ShoppingCart.Controllers
         public ActionResult Index(string SessionId)
         {
             int currentCustomer = 0;
-            List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(SessionId);
+            List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsByCustomerId(customerId);
             List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
             int cartQuantity = CartData.GetCartQuantity(SessionId);
 
