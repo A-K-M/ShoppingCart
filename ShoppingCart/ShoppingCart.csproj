@@ -136,7 +136,6 @@
     <Compile Include="Database\Data.cs" />
     <Compile Include="Database\ProductData.cs" />
     <Compile Include="Database\PurchaseData.cs" />
-    <Compile Include="Database\PurchaseDetailsData.cs" />
     <Compile Include="Database\SessionData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

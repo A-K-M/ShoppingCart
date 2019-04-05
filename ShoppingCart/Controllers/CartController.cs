@@ -26,7 +26,6 @@ namespace ShoppingCart.Controllers
             }
             int cartQuantity = CartData.GetCartQuantity(customer.CustomerId);
 
-            //ViewData["customer"] = customer;
             ViewData["SessionId"] = sessionId;
             ViewData["cart"] = cart;
             ViewData["products"] = products;
