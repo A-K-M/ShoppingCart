@@ -71,13 +71,13 @@ namespace ShoppingCart.Database
             return product;
         }
 
-        public static bool IsActiveCartId(int customerId)
+        public static bool IsActiveCartId(int customerId, int productId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
                 string sql = @"SELECT COUNT(*) FROM CartDetails
-                    WHERE CartId = " + customerId;
+                    WHERE CartId = " + customerId + " AND ProductId = " + productId;
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 int count = (int)cmd.ExecuteScalar();
                 conn.Close();
@@ -90,8 +90,8 @@ namespace ShoppingCart.Database
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = @"INSERT INTO CartDetails (CartId, ProductId, Quantity)
-                            VALUES ( " + CustomerId + ", " + ProductId + ", 1)";
+                string sql = @"INSERT INTO CartDetails 
+                            VALUES ( " + CustomerId + ", " + ProductId + ", 1, GETDATE())";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -99,29 +99,26 @@ namespace ShoppingCart.Database
         }
         public static void AddToCart(int ProductId, int CustomerId)
         {
-            if (IsActiveCartId(CustomerId) == false)
+            if (IsActiveCartId(CustomerId, ProductId) == false)
                 CreateCart(CustomerId, ProductId);
             else
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    //string sql = @"SELECT Quantity FROM CartDetails, Customers 
-                    //                    WHERE SessionId = '" + sessionId + "' AND CartDetails.ProductId = " + ProductId;
                     string sql = @"SELECT Quantity FROM CartDetails 
                                         WHERE CartId = '" + CustomerId + "' AND ProductId = " + ProductId;
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.ExecuteNonQuery();
                     int quantity = (int)cmd.ExecuteScalar();
-                    sql = @"UPDATE CartDetails SET Quantity = " + (quantity + 1) +
-                                " WHERE CartId = '" + CustomerId + "' AND ProductId = " + ProductId;
+                    sql = @"UPDATE CartDetails SET Quantity = " + (quantity + 1) + ", LastUpdateDate = GETDATE() " +
+                                 "WHERE CartId = '" + CustomerId + "' AND ProductId = " + ProductId;
                     cmd = new SqlCommand(sql, conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }
             }
         }
-
         public static int GetCartQuantity(int customerId)
         {
             List<CartDetail> cart = CartData.GetCart(customerId);
@@ -133,5 +130,20 @@ namespace ShoppingCart.Database
             }
             return quantity;
         }
+
+
+        public static void ClearCart(int CustomerId)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"Delete from CartDetails where CartId = " + CustomerId;
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+
     }
 }

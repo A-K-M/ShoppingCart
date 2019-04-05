@@ -14,7 +14,7 @@
     {
         <div class="col-sm-4">
 
-            <table align="center" border="1" width="80%">
+            <table align="center" border="0" width="80%">
                 <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
                 <tr><td><center><b>@product.ProductName</b></center></td></tr>
                 <tr><td><center>@product.ProductDescription</center></td></tr>
@@ -24,9 +24,10 @@
                             @Html.ActionLink( "$" + @product.UnitPrice + "- Add to Cart" , "AddToCart", "Cart",
                             new { productId = product.ProductId, customerId = customer.CustomerId}, new { @class = "btn btn-success btn-large" })
                         </center>
+                        @*<input type="button" name="AddToCart" value="Add To Cart" onclick="AddCart(@customer.CustomerId,@product.ProductId)" />*@
                     </td>
                 </tr>
-            </table><span style="line-height:20px">&nbsp;</span>
+            </table><span style="line-height:80px">&nbsp;</span>
         </div>
     }
 </div>
@@ -36,3 +37,7 @@
         padding: 5px;
     }
 </style>
+
+<script>
+
+</script>

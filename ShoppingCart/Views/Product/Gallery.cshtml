@@ -11,8 +11,13 @@
     var sessionId = (string)ViewData["sessionId"];
     var cartQuantity = (int)ViewData["cartQuantity"];
 }*@
+<center>
+    <h2>
+        Browse Products
+    </h2>
+</center>
 
-<div style="line-height:30px">&nbsp;</div>
+<div style="line-height:10px">&nbsp;</div>
 
 <style type="text/css">
     tr {
@@ -22,48 +27,13 @@
 
 <!-- Search form -->
 <div class="md-form ">
-    <center><input class="form-control" type="text" placeholder="Search" aria-label="Search" id="search" onkeyup="if (event.keyCode == 13) search(); else if (event.keyCode == 8) resetSearch();"></center>
+    <center><input class="form-control" type="text" placeholder="Enter your search here" aria-label="Search" id="search" onkeyup="if (event.keyCode == 13) search(); else if (event.keyCode == 8) resetSearch();"></center>
 </div>
 
 
 <div style="line-height:30px">&nbsp;</div>
 
 @Html.Partial("_ProductList")
-@*<div id="productList">
-        @foreach (var product in products)
-        {
-
-            <div class="col-sm-4">
-
-                <table align="center" border="1" width="80%">
-                    <tr align="center"><td><img class="border" width="200" height="200" src=@product.ImagePath /></td></tr>
-                    <tr><td><center><b>@product.ProductName</b></center></td></tr>
-                    <tr><td><center>@product.ProductDescription</center></td></tr>
-                    <tr>
-                        <td>
-                            $@product.UnitPrice  - @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
-                            new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <center>
-                                @Html.ActionLink( "$" + @product.UnitPrice + "- Add to Cart" , "AddToCart", "Cart",
-                                new { productId = product.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, new { @class = "btn btn-success btn-large" })
-                            </center>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        }
-    </div>
-
-    <style>
-        td, tr, th {
-            padding: 2px;
-        }
-    </style>*@
 
 <script>
     var session = '@(ViewData["sessionId"])';
@@ -84,5 +54,19 @@
         if (searchObj.value == "") {
             search();
         }
+    }
+
+    function AddCart(CustomerId, ProductId) {
+        console.log('Product ID Clicked is ' + ProductId + 'CustomerID is ' + CustomerId);
+
+        //var xhttp = new XMLHttpRequest();
+        //xhttp.onreadystatechange = function () {
+        //    if (this.readyState == 4 && this.status == 200) {
+        //        document.getElementById("cartQty").innerHTML = this.responseText;
+        //    }
+        //};
+        //xhttp.open("GET", "/Cart/?productId=" + productId + "&customerId=" + , true);
+        //xhttp.send();
+       
     }
 </script>

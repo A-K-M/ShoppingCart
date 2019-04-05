@@ -2,8 +2,10 @@
 
 @{
     ViewBag.Title = "Login";
+    var error = TempData["error"];
 }
 
+@Html.Raw(error);
 <div style="line-height:40px">&nbsp;</div>
 
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
@@ -35,4 +37,21 @@
         padding: 2px
     }
 </style>
+
+<script>
+    window.onload = function () {
+        var msg = @error;
+        console.log(msg);
+
+        @*if (@error  != "") {
+            alert()@error;
+        }*@
+    }
+    $(document).ready(function () {
+        $("#submitButton").on("click", function () {
+            alert('Your Message');
+        });
+
+    });
+</script>
 
