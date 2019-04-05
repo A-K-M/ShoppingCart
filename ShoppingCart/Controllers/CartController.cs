@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using ShoppingCart.Models;
 using ShoppingCart.Database;
 using System.Data.SqlClient;
-using System.Diagnostics;
 
 namespace ShoppingCart.Controllers
 {
@@ -15,7 +14,8 @@ namespace ShoppingCart.Controllers
         // GET: Cart
         public ActionResult ViewCart(string sessionId)
         {
-            // get cust id to match cust id w cart id
+            if (sessionId == null)
+                return RedirectToAction("Index", "Login");
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
             List<CartDetail> cart = CartData.GetCart(customer.CustomerId);
             ProductData pd = new ProductData();
@@ -31,7 +31,6 @@ namespace ShoppingCart.Controllers
             ViewData["cart"] = cart;
             ViewData["products"] = products;
             ViewData["cartQuantity"] = cartQuantity;
-            ViewData["cid"] = customer.CustomerId;
             return View();
         }
 
@@ -48,39 +47,16 @@ namespace ShoppingCart.Controllers
         //    CartData.AddToCart(productId, customerId);
         //    return CartData.GetCartQuantity(customerId);
         //}
+        
+        //public ActionResult CheckOut(int CustomerId)
+        //{
+        //    //insert into Purhcase 
 
 
-
-
-        [HttpPost]
-        public ActionResult CheckOut(int CustomerId)
-        {
-            int P_ID, Qty;
-
-            //create New Purchase Record
-            PurchaseData.CreateNewPurchase(CustomerId);
-            foreach (string key in Request.Form.AllKeys)
-            {
-                //Debug.WriteLine("Keys : : : " + key);
-                //Debug.WriteLine("Value : : : " + Request[key]);
-                if (key != "CheckOut")
-                {
-                    P_ID = Convert.ToInt32(key);
-                    Qty = Convert.ToInt32(Request[key]);
-
-                    for (int i = 0; i < Qty; i++)
-                    {
-                        PurchaseData.InsertNewPurchses(P_ID);
-                    }
-                }
-            }
-            //delete form Cart
-            CartData.ClearCart(CustomerId);
-            Customer customer_data = CustomerData.GetCustomerByCustomerId(CustomerId);
-            string session = customer_data.SessionId;
-
-            return RedirectToAction("Index", "Purchases", new { sessionId = @session });
-
-        }
+        //    //delete form Cart
+        //    string session = CustomerData.GetSessionId(CustomerId);
+        //    CartData.ClearCart(CustomerId);
+        //    return RedirectToAction("Gallery", "Product", new { sessionId = session });
+        //}
     }
 }

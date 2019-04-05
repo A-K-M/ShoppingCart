@@ -32,23 +32,23 @@
                     </div>
                 }
             </div>
-           
+
             <div class="navbar-collapse collapse">
                 @if (sessionId != null)
                 {
-                <ul class="nav navbar-nav">
-                    @{
-                        if (customer != null)
-                        {
-                            var name = customer.FirstName + " " + customer.LastName;
-                            <li><a style="color:white">Hello, @name</a></li>
+                    <ul class="nav navbar-nav">
+                        @{
+                            if (customer != null)
+                            {
+                                var name = customer.FirstName + " " + customer.LastName;
+                                <li><a style="color:white">Hello, @name</a></li>
+                            }
                         }
-                    }
-                    <li>@Html.ActionLink("View Products", "Gallery", "Product", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
-                    <li>@Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>|
-                    <li><a style="color:white">|</a></li>
-                    <li>@Html.ActionLink("Log Out", "Index", "Logout", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
-                </ul>
+                        <li>@Html.ActionLink("View Products", "Gallery", "Product", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
+                        <li>@Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>|
+                        <li><a style="color:white">|</a></li>
+                        <li>@Html.ActionLink("Log Out", "Index", "Logout", new { sessionId = @sessionId }, new { @style = "color:white;" })</li>
+                    </ul>
                 }
 
                 <div class="nav navbar-nav navbar-right">
@@ -61,12 +61,14 @@
                             @cartQuantity Item(s)
                         </a>
                     }
-                </div>                       
+                </div>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
+    </div>
+    <div class="container">
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Shopping Cart with MVC - by Team 1A</p>
