@@ -48,15 +48,15 @@ namespace ShoppingCart.Controllers
         //    return CartData.GetCartQuantity(customerId);
         //}
         
-        public ActionResult CheckOut(int CustomerId)
-        {
-            //insert into Purhcase 
+        //public ActionResult CheckOut(int CustomerId)
+        //{
+        //    //insert into Purhcase 
 
 
-            //delete form Cart
-            string session = CustomerData.GetSessionId(CustomerId);
-            CartData.ClearCart(CustomerId);
-            return RedirectToAction("Gallery", "Product", new { sessionId = session });
-        }
+        //    //delete form Cart
+        //    string session = CustomerData.GetSessionId(CustomerId);
+        //    CartData.ClearCart(CustomerId);
+        //    return RedirectToAction("Gallery", "Product", new { sessionId = session });
+        //}
     }
 }
