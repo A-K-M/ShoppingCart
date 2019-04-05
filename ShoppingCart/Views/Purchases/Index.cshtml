@@ -7,13 +7,10 @@
 @{
     List<Purchase> purchases = (List<Purchase>)ViewData["PurchaseDetails"];
     var sessionId = ViewData["sessionId"];
-   // var Purchasedate = ViewData[DateTime.Now.]
 }
 
 <h2>
-    My Purchases &nbsp; &nbsp;
-    @*@Html.ActionLink("Continue Shopping", "Gallery", "Product", new { sessionId = @SessionId }, null) &nbsp;|
-    @Html.ActionLink("Checkout", "Action Method2", "Purchases") &nbsp;  &nbsp; &nbsp; &nbsp;*@
+    My Purchases
 </h2>
 
 @foreach (var item in purchases)

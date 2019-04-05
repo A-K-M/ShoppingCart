@@ -8,55 +8,24 @@
     var cartQuantity = ViewData["cartQuantity"];
 }
 
+@foreach (var item in Model)
+{
+    <div class="col-sm-4">
 
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-4">
-
-            <table align="center" border="0" width="80%">
-                <tr align="center"><td><img class="border" width="200" height="200" src=@Html.DisplayFor(modelItem => item.ImagePath) /></td></tr>
-                <tr><td><center><b>@Html.DisplayFor(modelItem => item.ProductName)</b></center></td></tr>
-                <tr><td><center>@Html.DisplayFor(modelItem => item.ProductDescription)</center></td></tr>
-                <tr>
-                    <td>
-                        <center>
-                            @Html.ActionLink( "$" + @Html.DisplayFor(modelItem => item.UnitPrice) + "- Add to Cart" , "AddToCart", "Cart",
-                            new { productId = item.ProductId, customerId = customer.CustomerId}, new { @class = "btn btn-success btn-large" })
-                        </center>
-                        @*<input type="button" name="AddToCart" value="Add To Cart" onclick="AddCart(@customer.CustomerId,@product.ProductId)" />*@
-                    </td>
-                </tr>
-            </table><span style="line-height:80px">&nbsp;</span>
-        </div>
-    }
-    @*{
-    <tr>
-        <td>
-            <table align="center" border="1" width="80%">
-                <tr align="center">
-                    <td>
-                        <img class="border" width="200" height="200" src=@Html.DisplayFor(modelItem => item.ImagePath) />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductName)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ProductDescription)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UnitPrice) -
-                        @Html.ActionLink("Add to Cart", "AddToCart", "Cart",
-                           new { productId = item.ProductId, customerId = customer.CustomerId ,sessionId = @sessionId }, null)
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    }*@
+        <table align="center" border="0" width="80%">
+            <tr align="center"><td><img class="border" width="200" height="200" src=@Html.DisplayFor(modelItem => item.ImagePath) /></td></tr>
+            <tr><td><center><b>@Html.DisplayFor(modelItem => item.ProductName)</b></center></td></tr>
+            <tr><td><center>@Html.DisplayFor(modelItem => item.ProductDescription)</center></td></tr>
+            <tr>
+                <td>
+                    <center>
+                        @Html.ActionLink( "$" + @Html.DisplayFor(modelItem => item.UnitPrice) + "- Add to Cart" , "AddToCart", "Cart",
+                        new { productId = item.ProductId, customerId = customer.CustomerId}, new { @class = "btn btn-success btn-large" })
+                    </center>
+                    @*<input type="button" name="AddToCart" value="Add To Cart" onclick="AddCart(@customer.CustomerId,@product.ProductId)" />*@
+                </td>
+            </tr>
+        </table><span style="line-height:80px">&nbsp;</span>
+    </div>
+}
 
