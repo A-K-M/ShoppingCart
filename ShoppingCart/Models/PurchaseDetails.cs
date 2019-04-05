@@ -12,8 +12,8 @@ namespace ShoppingCart.Models
         public int ProductId {get; set;}
         public string ActivationCode {get; set;}
         public Product Product { get; set; }
-        public Purchase Purchase { get; set; }
-        public int Quantity { get; set; }
+        //public Purchase Purchase { get; set; }
+        //public int Quantity { get; set; }
 
         public IEnumerable<string> ActCodes { get; set; }
     }

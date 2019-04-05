@@ -9,11 +9,6 @@
     var sessionId = ViewData["sessionId"];
 
 }
-<table>
-    <tr>
-        <td>@Html.ActionLink("Log Out", "Index", "Login", new { sessionId = @sessionId }, null)</td>
-    </tr>
-</table>
 <style>
     * {
         box-sizing: border-box;
@@ -79,7 +74,7 @@
                         @Html.DropDownListFor(pdd => pd.ActCodes, pd.ActCodes.Select(s => new SelectListItem { Text = s, Value = s }))
                     }
                 </p>
-                <p>Quantity: @pd.Quantity</p>
+                <p>Quantity: @pd.ActCodes.Count()</p>
 
             </div>
         </div>

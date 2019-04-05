@@ -13,22 +13,26 @@ namespace ShoppingCart.Controllers
         // GET: Purchases
         public ActionResult Index(string SessionId)
         {
-            int currentCustomer = 0;
-            List<PurchaseDetails> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsBySessionId(SessionId);
-            List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
+            //int currentCustomer = 0;
+            Customer C = CustomerData.GetCustomerBySessionId(SessionId);
+            List<Purchase> PurchaseDetails = PurchaseDetailsData.GetPurchaseDetailsByCustomerId(C.CustomerId);
+           // List<Purchase> Purchase = PurchaseData.GetPurchaseBySessionId(SessionId);
             int cartQuantity = CartData.GetCartQuantity(SessionId);
 
-            foreach (var purchase in PurchaseDetails)
-            {
-                purchase.Purchase = PurchaseDetailsData.GetPurchaseByPurchaseId(purchase.PurchaseId);
-                purchase.Product = PurchaseDetailsData.GetProductByProductId(purchase.ProductId);
-                foreach (var i in Purchase)
-                {
-                    if (i.PurchaseId == purchase.PurchaseId)
-                    { currentCustomer = i.CustomerId; }
-                }
-                purchase.Quantity = PurchaseDetailsData.getpurchasedproductscount(currentCustomer, purchase.ProductId);
-            }
+            //foreach (var purchase in PurchaseDetails)
+            //{
+            //    foreach (var details in purchase.PurchaseDetails)
+            //    {
+            //        details.PurchaseId = PurchaseDetailsData.GetPurchaseByPurchaseId(purchase.PurchaseId);
+            //        details.Product = PurchaseDetailsData.GetProductByProductId(purchase.ProductId);
+            //        foreach (var i in Purchase)
+            //        {
+            //            if (i.PurchaseId == purchase.PurchaseId)
+            //            { currentCustomer = i.CustomerId; }
+            //        }
+            //    }
+            //   // purchase.Quantity = PurchaseDetailsData.getpurchasedproductscount(currentCustomer, purchase.ProductId);
+            //}
 
             ViewData["PurchaseDetails"] = PurchaseDetails;
             ViewData["sessionId"] = SessionId;

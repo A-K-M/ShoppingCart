@@ -43,7 +43,7 @@ namespace ShoppingCart.Database
                 foreach(Purchase purchase in purchases)
                 {
                     List<PurchaseDetails> purchaseDetails = new List<PurchaseDetails>();
-                    sql = @"select p.ProductId, p.ProductName, p.ProductDescription, p.UnitPrice, p.Image, pd.PurchaseId, pd.ActivationCode, pd.Quantity from Products p, PurchaseDetails pd where p.ProductId=pd.ProductId and pd.PurchaseId=@purchaseid";
+                    sql = @"select p.ProductId, p.ProductName, p.ProductDescription, p.UnitPrice, p.Image, pd.PurchaseId, pd.ActivationCode from Products p, PurchaseDetails pd where p.ProductId=pd.ProductId and pd.PurchaseId=@purchaseid";
                     cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@purchaseid", purchase.PurchaseId);
                     reader = cmd.ExecuteReader();
@@ -62,7 +62,6 @@ namespace ShoppingCart.Database
                             ActCodes = ShopUtil.GetActivationList((string)reader["ActivationCode"]),
                             ProductId = (int)reader["ProductId"],
                             PurchaseId = (int)reader["PurchaseId"],
-                            Quantity = (int)reader["Quantity"]
                         };
                         purchaseDetails.Add(det);
                     }
