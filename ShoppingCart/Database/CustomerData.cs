@@ -63,5 +63,33 @@ namespace ShoppingCart.Database
             }
             return customer;
         }
+
+        public static Customer GetCustomerByCustomerId(int customerId)
+        {
+            Customer customer = null;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string q = @"SELECT CustomerID, FirstName, LastName, sessionID 
+                            FROM Customers
+                            WHERE CustomerId = '" + customerId + "'";
+
+                SqlCommand cmd = new SqlCommand(q, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    customer = new Customer()
+                    {
+                        CustomerId = (int)reader["CustomerId"],
+                        FirstName = (string)reader["FirstName"],
+                        LastName = (string)reader["LastName"],
+                        SessionId =  (string)reader["sessionID"]
+                    };
+                }
+            }
+            return customer;
+        }
     }
 }
