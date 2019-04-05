@@ -82,5 +82,44 @@ namespace ShoppingCart.Controllers
             return RedirectToAction("Index", "Purchases", new { sessionId = @session });
 
         }
+
+        public ActionResult ContinueShopping(int CustomerId)
+        {
+            Customer customer = CustomerData.GetCustomerByCustomerId(CustomerId);
+            string sessionId = customer.SessionId;
+            int P_ID, Qty;
+
+
+            foreach (string key in Request.Form.AllKeys)
+            {
+                //Debug.WriteLine("Keys : : : " + key);
+                //Debug.WriteLine("Value : : : " + Request[key]);
+                if (key != "continue_shopping")
+                {
+                    P_ID = Convert.ToInt32(key);
+                    Qty = Convert.ToInt32(Request[key]);
+                    CartData.UpdateQty(CustomerId, P_ID, Qty);
+                }
+
+            }
+            return RedirectToAction("Gallery", "Product", new { sessionId = @sessionId });
+
+        }
+
+
+        public ActionResult RemovePro(int CartID, int ProductID)
+        {
+            Customer customer = CustomerData.GetCustomerByCustomerId(CartID);
+            string sessionId = customer.SessionId;
+
+            CartData.RemoveProduct(CartID, ProductID);
+            int cartQuantity = CartData.GetCartQuantity(customer.CustomerId);
+            ViewData["cartQuantity"] = cartQuantity;
+
+            return RedirectToAction("ViewCart", "Cart", new { sessionId = @sessionId });
+
+        }
+
+
     }
 }

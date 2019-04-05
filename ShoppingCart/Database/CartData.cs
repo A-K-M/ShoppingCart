@@ -154,5 +154,30 @@ namespace ShoppingCart.Database
         }
 
 
+        public static void UpdateQty(int CartID, int ProductID, int Qty)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"UPDATE CartDetails SET Quantity = "+ Qty + ", LastUpdateDate = GetDate() WHERE CartID = " + CartID+" and ProductID = "+ProductID+";";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        public static void RemoveProduct(int CartID, int ProductID)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string sql = @"DELETE FROM CartDetails WHERE CartID = " + CartID + " and ProductID = " + ProductID + ";";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+
     }
 }

@@ -49,8 +49,11 @@
 {
 <h2>
     View Cart &nbsp; &nbsp;
-    <input type="button" name="Continue" value="Continue Shopping" class="btn-link" onclick="continue_shopping()" />
+
+    <input type="submit" name="continue_shopping" value="Continue Shopping" class="btn-link" formaction="/Cart/continueShopping?CustomerId=@cid" />
+
     &nbsp;|
+    @*@Html.ActionLink("CheckOut", "CheckOut", "Cart", new { CustomerId = @cid }, null )*@
     <input type="submit" name="CheckOut" value="Checkout" class="btn-link" formaction="/Cart/CheckOut?CustomerId=@cid" />
     <p>Total: <span id="total"></span></p>
 </h2>
@@ -69,6 +72,7 @@
                     <p> Price: $@cartitem.Product.UnitPrice</p>
                     Quantity: <input type="number" value=@cartitem.Quantity 
                                      name="@cartitem.Product.ProductId" 
+                                     id="@cartitem.Product.ProductId" 
                                      onchange="updatePrice(this, @cartitem.Product.UnitPrice)"
                                      oninput="if (this.value == '0') remove_row(this);">
                 </td>
@@ -108,6 +112,7 @@
 
             function updatePrice(sender, price) {
                 let updatedCartItem = data.find(cartItem => cartItem.productId === sender.id);
+                console.log(sender.id);
                 var index = data.indexOf(updatedCartItem);
                 data.splice(index, 1);
 
@@ -121,32 +126,14 @@
                 setTotalValue();
             }
     function remove_row(r) {
+         var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "RemovePro?CartID=" + @cid + "&ProductID=" + r.id, true);
+        xhttp.send();
             var i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("cart_table").deleteRow(i);
+        document.getElementById("cart_table").deleteRow(i);
+
+       
     }
-    function checkout() {
 
-        
-    //method = "post";
-    //path = "CheckOut";
-    //var form = document.createElement("form");
-    //form.setAttribute("method", method);
-    //form.setAttribute("action", path);
-
-
-    //var inputs = document.getElementsByClassName('cart_item_value');
-    //for (var i in inputs) {
-    //    var hiddenField = document.createElement("input");
-    //    hiddenField.setAttribute("type", "hidden");
-    //    hiddenField.setAttribute("name", i.id);
-    //    hiddenField.setAttribute("value", i.value);
-    //    //hiddenField.setAttribute("class", cID);
-    //    form.appendChild(hiddenField);
-
-    //}
-    //    document.body.appendChild(form);
-    //    form.submit();
-
-    }
 
 </script>
