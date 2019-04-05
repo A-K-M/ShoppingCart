@@ -34,7 +34,6 @@ namespace ShoppingCart.Controllers
 
             string sessionId = SessionData.CreateSession(customer.CustomerId);
 
-            //string sessionId = Guid.NewGuid().ToString();
             Session[sessionId] = Username;
             Session[Username] = sessionId;
 

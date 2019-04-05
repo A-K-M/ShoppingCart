@@ -1,10 +1,10 @@
 ﻿@model ShoppingCart.Models.Customer
 
 @{
-    ViewBag.Title = "Login Page";
+    ViewBag.Title = "Login";
 }
 
-<div style="line-height:20px">&nbsp;</div>
+<div style="line-height:40px">&nbsp;</div>
 
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
 {
@@ -28,7 +28,7 @@
 
 <style>
     .field-validation-error {
-        color: darkred;
+        color: red;
     }
 
     tr, td {

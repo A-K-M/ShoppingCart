@@ -21,8 +21,6 @@ namespace ShoppingCart.Database
                             from Products order by ProductId";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
-
-
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader != null)
                 {
@@ -48,6 +46,7 @@ namespace ShoppingCart.Database
             using (SqlConnection conn = new SqlConnection(Data.connectionString))
             {
                 conn.Open();
+
                 string sql = @"SELECT * FROM Products where ProductName like '%" + searchObj + "%' " +
                     "or ProductDescription like '%" + searchObj + "%'";
                 SqlCommand cmd = new SqlCommand(sql, conn);
