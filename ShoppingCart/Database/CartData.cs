@@ -9,15 +9,15 @@ namespace ShoppingCart.Database
 {
     public class CartData : Data
     {
-        public static List<CartDetail> GetCart(string sessionId)
+        public static List<CartDetail> GetCart(int customerId)
         {
             List<CartDetail> cart = new List<CartDetail>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-                string sql = @"SELECT CustomerId, CartId, ProductId, Quantity from  Customers, CartDetails 
-                WHERE CustomerId = CartId AND SessionId = '" + sessionId + "'";
+                string sql = @"SELECT CartId, ProductId, Quantity from CartDetails 
+                WHERE CartId = " + customerId;
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader == null)
@@ -71,13 +71,13 @@ namespace ShoppingCart.Database
             return product;
         }
 
-        public static bool IsActiveCartId(int productId, string sessionId)
+        public static bool IsActiveCartId(int customerId)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = @"SELECT COUNT(*) FROM Customers, CartDetails
-                    WHERE sessionId = '" + sessionId + "' AND CustomerId = CartId AND ProductId = " + productId;
+                string sql = @"SELECT COUNT(*) FROM CartDetails
+                    WHERE CartId = " + customerId;
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 int count = (int)cmd.ExecuteScalar();
                 conn.Close();
@@ -97,17 +97,19 @@ namespace ShoppingCart.Database
                 conn.Close();
             }
         }
-        public static void AddToCart(int ProductId, int CustomerId, string sessionId)
+        public static void AddToCart(int ProductId, int CustomerId)
         {
-            if (IsActiveCartId(ProductId, sessionId) == false)
+            if (IsActiveCartId(CustomerId) == false)
                 CreateCart(CustomerId, ProductId);
             else
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = @"SELECT Quantity FROM CartDetails, Customers 
-                                        WHERE SessionId = '" + sessionId + "' AND CartDetails.ProductId = " + ProductId;
+                    //string sql = @"SELECT Quantity FROM CartDetails, Customers 
+                    //                    WHERE SessionId = '" + sessionId + "' AND CartDetails.ProductId = " + ProductId;
+                    string sql = @"SELECT Quantity FROM CartDetails 
+                                        WHERE CartId = '" + CustomerId + "' AND ProductId = " + ProductId;
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.ExecuteNonQuery();
                     int quantity = (int)cmd.ExecuteScalar();
@@ -120,9 +122,9 @@ namespace ShoppingCart.Database
             }
         }
 
-        public static int GetCartQuantity(string sessionId)
+        public static int GetCartQuantity(int customerId)
         {
-            List<CartDetail> cart = CartData.GetCart(sessionId);
+            List<CartDetail> cart = CartData.GetCart(customerId);
             int quantity = 0;
 
             foreach (var cartItem in cart)

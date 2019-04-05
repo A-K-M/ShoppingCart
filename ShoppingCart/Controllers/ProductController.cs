@@ -20,7 +20,7 @@ namespace ShoppingCart.Controllers
 
             List<Product> products = pd.GetAllProducts();
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
-            int cartQuantity = CartData.GetCartQuantity(sessionId);
+            int cartQuantity = CartData.GetCartQuantity(customer.CustomerId);
 
             ViewData["products"] = products;
             ViewData["customer"] = customer;
@@ -32,7 +32,7 @@ namespace ShoppingCart.Controllers
         {
             List<Product> products = pd.GetSearchProducts(searchObj);
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
-            int cartQuantity = CartData.GetCartQuantity(sessionId);
+            int cartQuantity = CartData.GetCartQuantity(customer.CustomerId);
 
             ViewData["products"] = products;
             ViewData["customer"] = customer;
@@ -45,7 +45,7 @@ namespace ShoppingCart.Controllers
         {
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
             List<Product> products = pd.GetSearchProducts(searchObj);
-            int cartQuantity = CartData.GetCartQuantity(sessionId);
+            int cartQuantity = CartData.GetCartQuantity(customer.CustomerId);
 
             ViewData["customer"] = customer;
             ViewData["sessionId"] = sessionId;
