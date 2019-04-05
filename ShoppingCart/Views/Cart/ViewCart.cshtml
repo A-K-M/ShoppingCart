@@ -55,7 +55,7 @@
     &nbsp;|
     @*@Html.ActionLink("CheckOut", "CheckOut", "Cart", new { CustomerId = @cid }, null )*@
     <input type="submit" name="CheckOut" value="Checkout" class="btn-link" formaction="/Cart/CheckOut?CustomerId=@cid" />
-    <p>Total: <span id="total"></span></p>
+    <p align="right">Cart Total: $<span id="total"></span></p>
 </h2>
     <table class="table" id="cart_table">
         @foreach (var cartitem in cart_list)
