@@ -36,11 +36,11 @@
                     @if (pd.ActivationCodes.Count() == 1)
                     {
                         var code = pd.ActivationCodes.ElementAt(0).ToString();
-                        @Html.TextBoxFor(abc => code);
+                    <b>@code</b>;
                     }
                     else
                     {
-                        @Html.DropDownListFor(pdd => pd.ActivationCodes, pd.ActivationCodes.Select(s => new SelectListItem { Text = s, Value = s }))
+                       <b> @Html.DropDownListFor(pdd => pd.ActivationCodes, pd.ActivationCodes.Select(s => new SelectListItem { Text = s, Value = s }))</b>
                     }
                 </p>
                 <p>Quantity: @pd.ActivationCodes.Count()</p>

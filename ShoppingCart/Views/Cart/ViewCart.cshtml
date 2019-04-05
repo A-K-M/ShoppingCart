@@ -1,8 +1,14 @@
 ﻿@using ShoppingCart.Models
 
-@{ var cart = (List<CartDetail>)ViewData["cart"];
+@{ var cart_list = (List<CartDetail>)ViewData["cart"];
     var SessionId = ViewData["SessionId"];
     var Product = (List<Product>)ViewData["Product"];
+    //decimal TotalCost = 0;
+    //foreach (var cartitem in cart_list)
+    //{
+    //    decimal price = cartitem.Quantity * cartitem.Product.UnitPrice;
+    //    TotalCost = TotalCost + price;
+    //}
 }
 @{
     ViewBag.Title = "ViewCart";
@@ -12,6 +18,7 @@
     @Html.ActionLink("Continue Shopping", "Gallery", "Product", new { sessionId = @SessionId }, null) &nbsp;|
     @Html.ActionLink("Checkout", "Action Method2", "Purchases") &nbsp;  &nbsp; &nbsp; &nbsp;
     <p>Total: <span id="total"></span></p>
+    @*<p>Total: @TotalCost</p>*@
 </h2>
 
 <style>
@@ -48,7 +55,7 @@
 @using (Html.BeginForm("Index", "Purchases", FormMethod.Post))
 {
     <table class="table" id="cart_table">
-        @foreach (var cartitem in cart)
+        @foreach (var cartitem in cart_list)
         {
             <tr>
                 <td>
@@ -75,7 +82,7 @@
 
             window.onload = function () {
                 @{
-                    foreach (var item in cart)
+                    foreach (var item in cart_list)
                     {
                         <text>
                         data.push
@@ -115,6 +122,10 @@
         function remove_row(r) {
             var i = r.parentNode.parentNode.rowIndex;
             document.getElementById("cart_table").deleteRow(i);
+
+    }
+
+    function update_cart() {
 
     }
 
