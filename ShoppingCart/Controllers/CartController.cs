@@ -15,6 +15,8 @@ namespace ShoppingCart.Controllers
         // GET: Cart
         public ActionResult ViewCart(string sessionId)
         {
+            if (sessionId == null)
+                return RedirectToAction("Index", "Login");
             // get cust id to match cust id w cart id
             Customer customer = CustomerData.GetCustomerBySessionId(sessionId);
             List<CartDetail> cart = CartData.GetCart(customer.CustomerId);
